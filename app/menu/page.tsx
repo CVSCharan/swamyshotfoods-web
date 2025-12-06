@@ -1,4 +1,7 @@
 import { API_URL } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
+
 import { MenuGrid } from "@/components/menu/menu-grid";
 import { Sparkles, UtensilsCrossed } from "lucide-react";
 
