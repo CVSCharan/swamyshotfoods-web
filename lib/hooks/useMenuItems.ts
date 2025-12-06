@@ -1,0 +1,110 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { API_URL } from "@/lib/config";
+
+export interface MenuItem {
+  _id: string;
+  name: string;
+  price: number;
+  desc: string;
+  timings: string;
+  ingredients: string;
+  priority: number;
+  imgSrc: string;
+}
+
+const MOCK_MENU_ITEMS: MenuItem[] = [
+  {
+    _id: "1",
+    name: "Idli (2 Pcs)",
+    price: 40,
+    desc: "Soft and fluffy steamed rice cakes served with chutney and sambar.",
+    timings: "Morning",
+    ingredients: "Rice, Urad Dal",
+    priority: 1,
+    imgSrc: "/images/idli.jpg",
+  },
+  {
+    _id: "2",
+    name: "Ghee Roast Dosa",
+    price: 60,
+    desc: "Crispy crepe made from fermented batter, roasted with ghee.",
+    timings: "Evening",
+    ingredients: "Rice, Urad Dal, Ghee",
+    priority: 2,
+    imgSrc: "/images/dosa.jpg",
+  },
+  {
+    _id: "3",
+    name: "Vada (2 Pcs)",
+    price: 50,
+    desc: "Crispy deep-fried savory donuts made from lentil batter.",
+    timings: "Morning",
+    ingredients: "Urad Dal, Spices",
+    priority: 3,
+    imgSrc: "/images/vada.jpg",
+  },
+  {
+    _id: "4",
+    name: "Pongal",
+    price: 55,
+    desc: "Comforting rice and lentil dish seasoned with black pepper, cumin, and ghee.",
+    timings: "Morning",
+    ingredients: "Rice, Moong Dal, Ghee",
+    priority: 4,
+    imgSrc: "/images/pongal.jpg",
+  },
+  {
+    _id: "5",
+    name: "Poori (2 Pcs)",
+    price: 70,
+    desc: "Deep-fried bread served with potato masala.",
+    timings: "Morning",
+    ingredients: "Wheat Flour",
+    priority: 5,
+    imgSrc: "/images/poori.jpg",
+  },
+  {
+    _id: "6",
+    name: "Pesarattu",
+    price: 65,
+    desc: "Whole green gram lentil crepe served with ginger chutney.",
+    timings: "Evening",
+    ingredients: "Green Gram, Ginger, Spices",
+    priority: 6,
+    imgSrc: "/images/pesarattu.jpg",
+  },
+];
+
+export function useMenuItems() {
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchMenuItems() {
+      try {
+        const res = await fetch(`${API_URL}/menu`, { cache: "no-store" });
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+        }
+
+        const items = await res.json();
+        setMenuItems(items);
+        setError(null);
+      } catch (err) {
+        console.warn("API fetch failed, using mock data:", err);
+        setMenuItems(MOCK_MENU_ITEMS);
+        setError(null); // Clear error since we have fallback
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMenuItems();
+  }, []);
+
+  return { menuItems, loading, error };
+}

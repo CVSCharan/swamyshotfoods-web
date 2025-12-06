@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useStoreConfigStore } from "../stores/useStoreConfigStore";
 import { API_URL } from "../config";
 
@@ -12,7 +12,7 @@ export const useStoreConfigSSE = () => {
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { setConfig, setConnected, setError } = useStoreConfigStore();
 
-  const connect = () => {
+  const connect = useCallback(() => {
     // Prevent multiple connections
     if (eventSourceRef.current?.readyState === EventSource.OPEN) {
       return;
@@ -39,7 +39,7 @@ export const useStoreConfigSSE = () => {
         }
       };
 
-      eventSource.onerror = (error) => {
+      eventSource.onerror = () => {
         // console.error("❌ SSE Error:", error);
         setConnected(false);
         // Don't set error visible to user for simple disconnects, just reconnect
@@ -57,9 +57,9 @@ export const useStoreConfigSSE = () => {
       console.error("❌ Failed to create EventSource:", err);
       setError("Failed to connect to server");
     }
-  };
+  }, [setConnected, setError, setConfig]);
 
-  const disconnect = () => {
+  const disconnect = useCallback(() => {
     if (reconnectTimeoutRef.current) {
       clearTimeout(reconnectTimeoutRef.current);
       reconnectTimeoutRef.current = null;
@@ -71,7 +71,7 @@ export const useStoreConfigSSE = () => {
       setConnected(false);
       console.log("🔌 SSE Disconnected");
     }
-  };
+  }, [setConnected]);
 
   useEffect(() => {
     // Only connect on client side
@@ -83,7 +83,7 @@ export const useStoreConfigSSE = () => {
     return () => {
       disconnect();
     };
-  }, []);
+  }, [connect, disconnect]);
 
   return { disconnect };
 };

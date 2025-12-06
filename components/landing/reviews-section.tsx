@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, MessageSquareQuote, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { motion } from "framer-motion";
 
 // Static reviews data
 const reviewsData = [
@@ -66,61 +66,138 @@ export function ReviewsSection() {
   }));
 
   return (
-    <div className="py-12 px-4 bg-neutral-50">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Google Review CTA Card */}
-        <Card className="overflow-hidden border-none shadow-xl bg-white relative group h-full flex flex-col justify-center">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-green-500 to-saffron-500"></div>
-          <CardContent className="p-8 text-center flex flex-col items-center">
-            <div className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center mb-6 p-2">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={60}
-                height={60}
-                className="object-contain"
-              />
+    <section className="py-20 px-4 bg-neutral-50 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-saffron-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-16 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 text-green-700 text-sm font-medium"
+          >
+            <Sparkles className="w-4 h-4 text-saffron-500" />
+            <span>Customer Love</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-heading text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight"
+          >
+            What Our Guests Are Saying
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-neutral-600 max-w-2xl mx-auto"
+          >
+            Don&apos;t just take our word for it. Here&apos;s what our community
+            loves about their experience at Swamy&apos;s Hot Foods.
+          </motion.p>
+        </div>
+
+        <div className="flex flex-col gap-16 items-center">
+          {/* Google Review CTA Card - Top Half */}
+          <motion.div
+            className="w-full max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 50,
+              damping: 20,
+              delay: 0.3,
+            }}
+          >
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-green-500 to-saffron-500 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+              <Card className="relative overflow-hidden border-none shadow-xl bg-white rounded-2xl">
+                <CardContent className="p-8 md:p-10 text-center flex flex-col items-center justify-center">
+                  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                    <motion.div
+                      className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center p-3 ring-4 ring-green-50 shrink-0"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      }}
+                    >
+                      <Image
+                        src="/logo.png"
+                        alt="Logo"
+                        width={60}
+                        height={60}
+                        className="object-contain"
+                      />
+                    </motion.div>
+
+                    <div className="text-center md:text-left space-y-2">
+                      <h3 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
+                        Support Our Small Business
+                      </h3>
+                      <h2 className="font-heading text-2xl md:text-3xl font-bold text-neutral-900 leading-tight">
+                        Review Us On{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
+                          Google
+                        </span>
+                      </h2>
+                      <div className="flex gap-1 justify-center md:justify-start">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            className="w-5 h-5 fill-saffron-500 text-saffron-500"
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="md:ml-auto">
+                      <motion.button
+                        onClick={handleReviewClick}
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap"
+                      >
+                        <MessageSquareQuote className="w-4 h-4" />
+                        Write a Review
+                      </motion.button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          </motion.div>
 
-            <h3 className="text-sm font-bold tracking-widest text-neutral-500 uppercase mb-2">
-              Support Our Small Business
-            </h3>
-
-            <div className="flex gap-1 mb-4">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className="w-6 h-6 fill-saffron-500 text-saffron-500"
-                />
-              ))}
-            </div>
-
-            <h2 className="font-heading text-3xl font-bold text-neutral-900 mb-4 leading-tight">
-              REVIEW US <br /> <span className="text-blue-600">ON GOOGLE</span>
-            </h2>
-
-            <p className="text-neutral-600 mb-8 max-w-xs mx-auto">
-              Your opinion helps us reach more people! Rate us if you enjoyed
-              our food and service!
-            </p>
-
-            <button
-              onClick={handleReviewClick}
-              className="px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full max-w-xs"
-            >
-              Write a Review
-            </button>
-          </CardContent>
-        </Card>
-
-        {/* Animated Testimonials */}
-        <div className="relative">
-          <h3 className="font-heading text-2xl font-bold text-neutral-900 mb-2 text-center md:text-left pl-4 border-l-4 border-green-500">
-            What Our Customers Say
-          </h3>
-          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+          {/* Animated Testimonials - Bottom Half */}
+          <motion.div
+            className="w-full"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 50,
+              damping: 20,
+              delay: 0.4,
+            }}
+          >
+            <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
