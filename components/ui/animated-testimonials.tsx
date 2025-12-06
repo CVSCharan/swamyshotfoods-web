@@ -94,62 +94,64 @@ export const AnimatedTestimonials = ({
 
         {/* Content Section - Centered and Larger Text */}
         <div className="flex flex-col items-center justify-between text-center max-w-2xl">
-          <motion.div
-            key={active}
-            initial={{
-              y: 10,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-            }}
-            exit={{
-              y: -10,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.4,
-              ease: "easeInOut",
-            }}
-          >
-            <motion.p className="text-2xl md:text-3xl font-medium text-neutral-700 leading-relaxed mb-8 font-heading">
-              &ldquo;
-              {testimonials[active].quote.split(" ").map((word, index) => (
-                <motion.span
-                  key={index}
-                  initial={{
-                    filter: "blur(4px)",
-                    opacity: 0,
-                    y: 5,
-                  }}
-                  animate={{
-                    filter: "blur(0px)",
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                    ease: "easeInOut",
-                    delay: 0.05 * index, // Slower word reveal
-                  }}
-                  className="inline-block"
-                >
-                  {word}&nbsp;
-                </motion.span>
-              ))}
-              &rdquo;
-            </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{
+                y: 10,
+                opacity: 0,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+              }}
+              exit={{
+                y: -10,
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.4,
+                ease: "easeInOut",
+              }}
+            >
+              <motion.p className="text-2xl md:text-3xl font-medium text-neutral-700 leading-relaxed mb-8 font-heading">
+                &ldquo;
+                {testimonials[active].quote.split(" ").map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{
+                      filter: "blur(4px)",
+                      opacity: 0,
+                      y: 5,
+                    }}
+                    animate={{
+                      filter: "blur(0px)",
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: "easeInOut",
+                      delay: 0.05 * index, // Slower word reveal
+                    }}
+                    className="inline-block"
+                  >
+                    {word}&nbsp;
+                  </motion.span>
+                ))}
+                &rdquo;
+              </motion.p>
 
-            <div className="space-y-1">
-              <h3 className="text-xl font-bold text-neutral-900">
-                {testimonials[active].name}
-              </h3>
-              <p className="text-sm text-neutral-500 font-medium uppercase tracking-wider">
-                {testimonials[active].designation}
-              </p>
-            </div>
-          </motion.div>
+              <div className="space-y-1">
+                <h3 className="text-xl font-bold text-neutral-900">
+                  {testimonials[active].name}
+                </h3>
+                <p className="text-sm text-neutral-500 font-medium uppercase tracking-wider">
+                  {testimonials[active].designation}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
           <div className="flex gap-4 pt-10">
             <button
