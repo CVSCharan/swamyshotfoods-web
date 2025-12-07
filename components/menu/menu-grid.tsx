@@ -10,8 +10,18 @@ interface MenuItem {
   name: string;
   price: number;
   desc: string;
-  timings: string;
-  ingredients: string;
+  timingTemplate?: string;
+  morningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  eveningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  ingredients: string[];
+  allergens?: string[];
+  dietaryLabels: string[];
   priority: number;
   imgSrc: string;
 }
@@ -20,25 +30,68 @@ interface MenuGridProps {
   items: MenuItem[];
 }
 
+// Helper function to get time slot for an item
+function getTimeSlot(item: MenuItem): string {
+  const hasMorning =
+    item.morningTimings !== null && item.morningTimings !== undefined;
+  const hasEvening =
+    item.eveningTimings !== null && item.eveningTimings !== undefined;
+
+  if (hasMorning && hasEvening) return "All Day";
+  if (hasMorning) return "Morning";
+  if (hasEvening) return "Evening";
+  return "Anytime";
+}
+
+// Helper function to format timing display
+function formatTimings(item: MenuItem): string {
+  const parts: string[] = [];
+  if (item.morningTimings) {
+    parts.push(
+      `${item.morningTimings.startTime}-${item.morningTimings.endTime}`
+    );
+  }
+  if (item.eveningTimings) {
+    parts.push(
+      `${item.eveningTimings.startTime}-${item.eveningTimings.endTime}`
+    );
+  }
+  return parts.join(" & ") || "Anytime";
+}
+
 export function MenuGrid({ items }: MenuGridProps) {
-  const [filter, setFilter] = useState("All");
+  const [timeSlotFilter, setTimeSlotFilter] = useState("All");
+  const [dietaryFilter, setDietaryFilter] = useState("All");
 
   // Console log all menu items
   console.log("📋 All Menu Items:", items);
   console.log("📊 Total Items Count:", items.length);
 
-  // Extract unique timings for categories, plus "All"
-  const categories = [
+  // Extract unique time slots
+  const timeSlots = [
     "All",
-    ...Array.from(new Set(items.map((i) => i.timings).filter(Boolean))),
+    ...Array.from(new Set(items.map((i) => getTimeSlot(i)))).sort(),
+  ];
+
+  // Extract unique dietary labels
+  const dietaryOptions = [
+    "All",
+    ...Array.from(new Set(items.flatMap((i) => i.dietaryLabels || []))).sort(),
   ];
 
   const filteredItems = items.filter((item) => {
-    return filter === "All" || item.timings === filter;
+    const timeSlotMatch =
+      timeSlotFilter === "All" || getTimeSlot(item) === timeSlotFilter;
+    const dietaryMatch =
+      dietaryFilter === "All" ||
+      (item.dietaryLabels &&
+        item.dietaryLabels.includes(dietaryFilter.toLowerCase()));
+    return timeSlotMatch && dietaryMatch;
   });
 
   // Console log filtered items
-  console.log("🔍 Current Filter:", filter);
+  console.log("🔍 Time Slot Filter:", timeSlotFilter);
+  console.log("🥗 Dietary Filter:", dietaryFilter);
   console.log("✅ Filtered Items:", filteredItems);
   console.log("📈 Filtered Count:", filteredItems.length);
 
@@ -68,22 +121,49 @@ export function MenuGrid({ items }: MenuGridProps) {
   return (
     <div className="space-y-8">
       {/* Controls */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between sticky top-20 z-30 bg-neutral-50/95 backdrop-blur-sm p-4 rounded-2xl border border-neutral-200 shadow-sm">
-        {/* Categories */}
-        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-          {categories.slice(0, 5).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === cat
-                  ? "bg-green-600 text-white shadow-md scale-105"
-                  : "bg-white text-neutral-600 hover:bg-green-50 hover:text-green-700 border border-neutral-200"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+      <div className="flex flex-col gap-4 sticky top-20 z-30 bg-neutral-50/95 backdrop-blur-sm p-4 rounded-2xl border border-neutral-200 shadow-sm">
+        {/* Time Slot Filter */}
+        <div className="space-y-2">
+          <label className="text-xs font-semibold text-neutral-600 uppercase tracking-wide">
+            Time Slot
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {timeSlots.map((slot) => (
+              <button
+                key={slot}
+                onClick={() => setTimeSlotFilter(slot)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  timeSlotFilter === slot
+                    ? "bg-green-600 text-white shadow-md scale-105"
+                    : "bg-white text-neutral-600 hover:bg-green-50 hover:text-green-700 border border-neutral-200"
+                }`}
+              >
+                {slot}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Dietary Filter */}
+        <div className="space-y-2">
+          <label className="text-xs font-semibold text-neutral-600 uppercase tracking-wide">
+            Dietary Preference
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {dietaryOptions.map((option) => (
+              <button
+                key={option}
+                onClick={() => setDietaryFilter(option)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  dietaryFilter === option
+                    ? "bg-green-600 text-white shadow-md scale-105"
+                    : "bg-white text-neutral-600 hover:bg-green-50 hover:text-green-700 border border-neutral-200"
+                }`}
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -127,12 +207,10 @@ export function MenuGrid({ items }: MenuGridProps) {
                 </div>
 
                 {/* Timing Badge */}
-                {item.timings && (
-                  <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
-                    <Clock className="w-3 h-3" />
-                    {item.timings}
-                  </div>
-                )}
+                <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+                  <Clock className="w-3 h-3" />
+                  {formatTimings(item)}
+                </div>
               </div>
 
               {/* Content */}
@@ -153,17 +231,49 @@ export function MenuGrid({ items }: MenuGridProps) {
                   {item.desc}
                 </p>
 
+                {/* Dietary Labels */}
+                {item.dietaryLabels && item.dietaryLabels.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {item.dietaryLabels.map((label, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] font-semibold uppercase tracking-wide text-green-700 bg-green-50 px-2 py-1 rounded-full border border-green-100"
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Allergen Warning */}
+                {item.allergens && item.allergens.length > 0 && (
+                  <div className="mb-3 p-2 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-[10px] font-semibold text-amber-800 uppercase tracking-wide mb-1">
+                      Allergens
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {item.allergens.map((allergen, i) => (
+                        <span
+                          key={i}
+                          className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md"
+                        >
+                          {allergen}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
                   <div className="flex flex-wrap gap-1">
                     {item.ingredients
-                      .split(",")
                       .slice(0, 3)
-                      .map((ing, i) => (
+                      .map((ing: string, i: number) => (
                         <span
                           key={i}
                           className="text-[10px] text-neutral-400 bg-neutral-50 px-2 py-1 rounded-md"
                         >
-                          {ing.trim()}
+                          {ing}
                         </span>
                       ))}
                   </div>

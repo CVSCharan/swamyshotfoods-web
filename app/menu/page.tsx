@@ -10,8 +10,18 @@ interface MenuItem {
   name: string;
   price: number;
   desc: string;
-  timings: string;
-  ingredients: string;
+  timingTemplate?: string;
+  morningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  eveningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  ingredients: string[];
+  allergens?: string[];
+  dietaryLabels: string[];
   priority: number;
   imgSrc: string;
 }

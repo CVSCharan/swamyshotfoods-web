@@ -8,8 +8,18 @@ export interface MenuItem {
   name: string;
   price: number;
   desc: string;
-  timings: string;
-  ingredients: string;
+  timingTemplate?: string;
+  morningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  eveningTimings?: {
+    startTime: string;
+    endTime: string;
+  };
+  ingredients: string[];
+  allergens?: string[];
+  dietaryLabels: string[];
   priority: number;
   imgSrc: string;
 }
@@ -20,8 +30,9 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Idli (2 Pcs)",
     price: 40,
     desc: "Soft and fluffy steamed rice cakes served with chutney and sambar.",
-    timings: "Morning",
-    ingredients: "Rice, Urad Dal",
+    morningTimings: { startTime: "08:00", endTime: "12:00" },
+    ingredients: ["Rice", "Urad Dal"],
+    dietaryLabels: ["vegetarian", "vegan", "gluten-free"],
     priority: 1,
     imgSrc: "/images/idli.jpg",
   },
@@ -30,8 +41,9 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Ghee Roast Dosa",
     price: 60,
     desc: "Crispy crepe made from fermented batter, roasted with ghee.",
-    timings: "Evening",
-    ingredients: "Rice, Urad Dal, Ghee",
+    eveningTimings: { startTime: "17:45", endTime: "21:30" },
+    ingredients: ["Rice", "Urad Dal", "Ghee"],
+    dietaryLabels: ["vegetarian"],
     priority: 2,
     imgSrc: "/images/dosa.jpg",
   },
@@ -40,8 +52,9 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Vada (2 Pcs)",
     price: 50,
     desc: "Crispy deep-fried savory donuts made from lentil batter.",
-    timings: "Morning",
-    ingredients: "Urad Dal, Spices",
+    morningTimings: { startTime: "08:00", endTime: "12:00" },
+    ingredients: ["Urad Dal", "Spices"],
+    dietaryLabels: ["vegetarian", "vegan"],
     priority: 3,
     imgSrc: "/images/vada.jpg",
   },
@@ -50,8 +63,9 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Pongal",
     price: 55,
     desc: "Comforting rice and lentil dish seasoned with black pepper, cumin, and ghee.",
-    timings: "Morning",
-    ingredients: "Rice, Moong Dal, Ghee",
+    morningTimings: { startTime: "08:00", endTime: "12:00" },
+    ingredients: ["Rice", "Moong Dal", "Ghee"],
+    dietaryLabels: ["vegetarian"],
     priority: 4,
     imgSrc: "/images/pongal.jpg",
   },
@@ -60,8 +74,10 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Poori (2 Pcs)",
     price: 70,
     desc: "Deep-fried bread served with potato masala.",
-    timings: "Morning",
-    ingredients: "Wheat Flour",
+    morningTimings: { startTime: "08:00", endTime: "12:00" },
+    ingredients: ["Wheat Flour"],
+    allergens: ["Gluten"],
+    dietaryLabels: ["vegetarian"],
     priority: 5,
     imgSrc: "/images/poori.jpg",
   },
@@ -70,8 +86,9 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     name: "Pesarattu",
     price: 65,
     desc: "Whole green gram lentil crepe served with ginger chutney.",
-    timings: "Evening",
-    ingredients: "Green Gram, Ginger, Spices",
+    eveningTimings: { startTime: "17:45", endTime: "21:30" },
+    ingredients: ["Green Gram", "Ginger", "Spices"],
+    dietaryLabels: ["vegetarian", "vegan", "gluten-free"],
     priority: 6,
     imgSrc: "/images/pesarattu.jpg",
   },
