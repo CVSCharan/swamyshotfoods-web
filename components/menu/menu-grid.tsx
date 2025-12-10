@@ -3,7 +3,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MenuItemImage } from "@/components/menu-item-image";
-import { Search, UtensilsCrossed, Clock, Flame } from "lucide-react";
+import {
+  Search,
+  UtensilsCrossed,
+  Clock,
+  Flame,
+  Grid3x3,
+  Sun,
+  Moon,
+  Coffee,
+} from "lucide-react";
 
 interface MenuItem {
   _id: string;
@@ -61,7 +70,6 @@ function formatTimings(item: MenuItem): string {
 
 export function MenuGrid({ items }: MenuGridProps) {
   const [timeSlotFilter, setTimeSlotFilter] = useState("All");
-  const [dietaryFilter, setDietaryFilter] = useState("All");
 
   // Console log all menu items
   console.log("📋 All Menu Items:", items);
@@ -73,25 +81,36 @@ export function MenuGrid({ items }: MenuGridProps) {
     ...Array.from(new Set(items.map((i) => getTimeSlot(i)))).sort(),
   ];
 
-  // Extract unique dietary labels
-  const dietaryOptions = [
-    "All",
-    ...Array.from(new Set(items.flatMap((i) => i.dietaryLabels || []))).sort(),
-  ];
+  // Better display names for filters
+  const getDisplayName = (slot: string) => {
+    const nameMap: Record<string, string> = {
+      All: "View All",
+      "All Day": "Breakfast & Dinner",
+      Morning: "Breakfast",
+      Evening: "Dinner",
+      Anytime: "Anytime",
+    };
+    return nameMap[slot] || slot;
+  };
+
+  // Icons for each filter
+  const getFilterIcon = (slot: string) => {
+    const iconMap: Record<string, any> = {
+      All: Grid3x3,
+      "All Day": Sun,
+      Morning: Coffee,
+      Evening: Moon,
+      Anytime: Clock,
+    };
+    return iconMap[slot] || Clock;
+  };
 
   const filteredItems = items.filter((item) => {
-    const timeSlotMatch =
-      timeSlotFilter === "All" || getTimeSlot(item) === timeSlotFilter;
-    const dietaryMatch =
-      dietaryFilter === "All" ||
-      (item.dietaryLabels &&
-        item.dietaryLabels.includes(dietaryFilter.toLowerCase()));
-    return timeSlotMatch && dietaryMatch;
+    return timeSlotFilter === "All" || getTimeSlot(item) === timeSlotFilter;
   });
 
   // Console log filtered items
   console.log("🔍 Time Slot Filter:", timeSlotFilter);
-  console.log("🥗 Dietary Filter:", dietaryFilter);
   console.log("✅ Filtered Items:", filteredItems);
   console.log("📈 Filtered Count:", filteredItems.length);
 
@@ -120,49 +139,29 @@ export function MenuGrid({ items }: MenuGridProps) {
 
   return (
     <div className="space-y-8">
-      {/* Controls */}
-      <div className="flex flex-col gap-4 sticky top-20 z-30 bg-neutral-50/95 backdrop-blur-sm p-4 rounded-2xl border border-neutral-200 shadow-sm">
-        {/* Time Slot Filter */}
-        <div className="space-y-2">
-          <label className="text-xs font-semibold text-neutral-600 uppercase tracking-wide">
-            Time Slot
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {timeSlots.map((slot) => (
-              <button
-                key={slot}
-                onClick={() => setTimeSlotFilter(slot)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  timeSlotFilter === slot
-                    ? "bg-green-600 text-white shadow-md scale-105"
-                    : "bg-white text-neutral-600 hover:bg-green-50 hover:text-green-700 border border-neutral-200"
-                }`}
-              >
-                {slot}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Dietary Filter */}
-        <div className="space-y-2">
-          <label className="text-xs font-semibold text-neutral-600 uppercase tracking-wide">
-            Dietary Preference
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {dietaryOptions.map((option) => (
-              <button
-                key={option}
-                onClick={() => setDietaryFilter(option)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  dietaryFilter === option
-                    ? "bg-green-600 text-white shadow-md scale-105"
-                    : "bg-white text-neutral-600 hover:bg-green-50 hover:text-green-700 border border-neutral-200"
-                }`}
-              >
-                {option.charAt(0).toUpperCase() + option.slice(1)}
-              </button>
-            ))}
+      {/* Dynamic Island Style Filter */}
+      <div className="sticky top-20 z-30 flex justify-center px-4">
+        <div className="bg-gradient-to-br from-white via-green-50/40 to-white backdrop-blur-xl p-3 md:p-4 rounded-full border-2 border-green-100 shadow-xl max-w-fit">
+          <div className="flex flex-wrap gap-2 justify-center items-center">
+            {timeSlots.map((slot) => {
+              const Icon = getFilterIcon(slot);
+              return (
+                <button
+                  key={slot}
+                  onClick={() => setTimeSlotFilter(slot)}
+                  className={`px-3 md:px-4 py-2 md:py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap ${
+                    timeSlotFilter === slot
+                      ? "bg-green-600 text-white shadow-lg scale-105"
+                      : "bg-white/80 text-neutral-700 hover:bg-green-50 hover:text-green-700 border border-neutral-200 hover:border-green-400 hover:scale-105"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="hidden md:inline">
+                    {getDisplayName(slot)}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -199,13 +198,6 @@ export function MenuGrid({ items }: MenuGridProps) {
                   <MenuItemImage src={item.imgSrc} alt={item.name} />
                 </motion.div>
 
-                {/* Floating Price Tag */}
-                <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-green-100">
-                  <span className="font-heading font-bold text-green-700">
-                    ₹{item.price}
-                  </span>
-                </div>
-
                 {/* Timing Badge */}
                 <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
                   <Clock className="w-3 h-3" />
@@ -216,9 +208,14 @@ export function MenuGrid({ items }: MenuGridProps) {
               {/* Content */}
               <div className="p-6 pt-2">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-heading text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
-                    {item.name}
-                  </h3>
+                  <div className="flex-1">
+                    <h3 className="font-heading text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="font-heading text-2xl font-bold text-green-600 mt-1">
+                      ₹{item.price}
+                    </p>
+                  </div>
                   {item.priority < 2 && (
                     <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100">
                       <Flame className="w-3 h-3 fill-current" />
@@ -230,20 +227,6 @@ export function MenuGrid({ items }: MenuGridProps) {
                 <p className="text-neutral-500 text-sm leading-relaxed mb-4 line-clamp-2">
                   {item.desc}
                 </p>
-
-                {/* Dietary Labels */}
-                {item.dietaryLabels && item.dietaryLabels.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {item.dietaryLabels.map((label, i) => (
-                      <span
-                        key={i}
-                        className="text-[10px] font-semibold uppercase tracking-wide text-green-700 bg-green-50 px-2 py-1 rounded-full border border-green-100"
-                      >
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                )}
 
                 {/* Allergen Warning */}
                 {item.allergens && item.allergens.length > 0 && (

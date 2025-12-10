@@ -42,8 +42,8 @@ export const AnimatedTestimonials = ({
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 font-sans antialiased">
       <div className="flex flex-col items-center gap-8 md:gap-12">
-        {/* Content Section - Centered and Larger Text */}
-        <div className="flex flex-col items-center justify-between text-center max-w-2xl">
+        {/* Content Section - Fixed height to prevent layout shifts */}
+        <div className="flex flex-col items-center justify-between text-center max-w-2xl min-h-[400px] md:min-h-[350px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -64,7 +64,7 @@ export const AnimatedTestimonials = ({
                 ease: "easeInOut",
               }}
             >
-              <motion.p className="text-2xl md:text-3xl font-medium text-neutral-700 leading-relaxed mb-8 font-heading">
+              <motion.p className="text-2xl md:text-3xl font-medium text-neutral-700 leading-relaxed mb-8 font-heading min-h-[240px] md:min-h-[200px]">
                 &ldquo;
                 {testimonials[active].quote.split(" ").map((word, index) => (
                   <motion.span
