@@ -2,7 +2,6 @@
 
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
-import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 
 type Testimonial = {
@@ -33,8 +32,6 @@ export const AnimatedTestimonials = ({
     return index === active;
   };
 
-  const [rotations, setRotations] = useState<number[]>([]);
-
   useEffect(() => {
     if (autoplay) {
       const interval = setInterval(handleNext, 10000); // Slowed down to 10s
@@ -42,56 +39,9 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay, handleNext]);
 
-  useEffect(() => {
-    setRotations(testimonials.map(() => Math.floor(Math.random() * 21) - 10));
-  }, [testimonials]);
-
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 font-sans antialiased">
       <div className="flex flex-col items-center gap-8 md:gap-12">
-        {/* Image/Avatar Section - Reduced Size */}
-        <div className="relative h-32 w-32 shrink-0">
-          <AnimatePresence>
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.src}
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                  rotate: rotations[index] ?? 0,
-                }}
-                animate={{
-                  opacity: isActive(index) ? 1 : 0.7,
-                  scale: isActive(index) ? 1 : 0.95,
-                  rotate: isActive(index) ? 0 : rotations[index] ?? 0,
-                  zIndex: isActive(index)
-                    ? 40
-                    : testimonials.length + 2 - index,
-                }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.9,
-                  rotate: rotations[index] ?? 0,
-                }}
-                transition={{
-                  duration: 0.6, // Slower transition
-                  ease: "easeInOut",
-                }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={testimonial.src}
-                  alt={testimonial.name}
-                  draggable={false}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="rounded-2xl object-cover object-center shadow-lg"
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-
         {/* Content Section - Centered and Larger Text */}
         <div className="flex flex-col items-center justify-between text-center max-w-2xl">
           <AnimatePresence mode="wait">

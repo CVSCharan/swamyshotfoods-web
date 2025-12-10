@@ -101,12 +101,16 @@ export default function LandingPage() {
       <AnimatePresence>
         {showSplash && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-green-900 via-green-800 to-neutral-900"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-neutral-50 via-white to-green-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
+            {/* Subtle decorative circles */}
+            <div className="absolute top-20 right-20 w-64 h-64 bg-green-200/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-20 left-20 w-64 h-64 bg-saffron-200/20 rounded-full blur-3xl" />
+
             <motion.div
               className="relative"
               initial={{ scale: 0.5, opacity: 0 }}
@@ -117,12 +121,12 @@ export default function LandingPage() {
                 ease: "easeOut",
               }}
             >
-              {/* Glow Effect */}
+              {/* Glow Effect - Softer */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-saffron-500/40 to-green-500/40 rounded-full blur-3xl"
+                className="absolute inset-0 bg-gradient-to-br from-saffron-300/30 to-green-300/30 rounded-full blur-3xl"
                 animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.4, 0.6, 0.4],
+                  opacity: [0.3, 0.5, 0.3],
                 }}
                 transition={{
                   duration: 2,
@@ -212,9 +216,6 @@ export default function LandingPage() {
             }}
           />
 
-          {/* Subtle Pattern Overlay */}
-          <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-[0.02]" />
-
           <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center text-center">
             {/* Title with Saffron Gradient */}
             <motion.h1
@@ -228,9 +229,7 @@ export default function LandingPage() {
                 delay: 0.2,
               }}
             >
-              <span className="bg-gradient-to-r from-saffron-700 via-saffron-600 to-saffron-500 bg-clip-text text-transparent">
-                Swamy&apos;s Hot Foods
-              </span>
+              <span className="text-saffron-500">Swamy&apos;s Hot Foods</span>
             </motion.h1>
 
             <motion.p

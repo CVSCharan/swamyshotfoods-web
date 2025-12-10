@@ -1,6 +1,30 @@
 import { API_URL } from "@/lib/config";
+import type { Metadata } from "next";
+import { generatePageMetadata } from "@/app/page-metadata";
+import {
+  getMenuSchema,
+  getBreadcrumbSchema,
+  generateJsonLd,
+} from "@/lib/structured-data";
 
 export const dynamic = "force-dynamic";
+
+// Generate metadata for menu page
+export const metadata: Metadata = generatePageMetadata({
+  title: "Our Menu - Authentic South Indian Dishes",
+  description:
+    "Explore our delicious menu of authentic South Indian vegetarian dishes including idli, dosa, vada, sambar, and more. Fresh, hot, and hygienic food served daily.",
+  path: "/menu",
+  keywords: [
+    "South Indian menu",
+    "idli menu",
+    "dosa varieties",
+    "vada menu",
+    "South Indian breakfast menu",
+    "vegetarian menu",
+    "Nellore restaurant menu",
+  ],
+});
 
 import { MenuGrid } from "@/components/menu/menu-grid";
 import { Sparkles, UtensilsCrossed } from "lucide-react";
@@ -51,13 +75,28 @@ async function getMenuItems(): Promise<{ items: MenuItem[]; error?: string }> {
 export default async function MenuPage() {
   const { items: menuItems, error } = await getMenuItems();
 
+  // Generate structured data
+  const menuSchema = getMenuSchema();
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "https://swamyshotfoods.in" },
+    { name: "Menu", url: "https://swamyshotfoods.in/menu" },
+  ]);
+
   return (
     <div className="min-h-screen bg-neutral-50">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(menuSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(breadcrumbSchema)}
+      />
       {/* Hero Section */}
       <section className="relative bg-green-900 text-white py-20 md:py-32 px-6 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-5 mix-blend-overlay" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-green-100 text-sm font-medium">

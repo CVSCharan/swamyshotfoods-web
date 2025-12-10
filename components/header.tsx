@@ -86,7 +86,7 @@ export function Header() {
               </div>
 
               <div className="hidden sm:block">
-                <h1 className="font-heading text-lg sm:text-xl font-bold text-saffron-700 leading-tight group-hover:text-saffron-800 transition-colors duration-300">
+                <h1 className="font-heading text-lg sm:text-xl font-bold text-saffron-500 leading-tight group-hover:text-saffron-600 transition-colors duration-300">
                   Swamy&apos;s Hot Foods
                 </h1>
                 <p className="text-xs text-green-600 font-medium tracking-wide">

@@ -108,9 +108,9 @@ export function ReviewsSection() {
         </div>
 
         <div className="flex flex-col gap-16 items-center">
-          {/* Google Review CTA Card - Top Half */}
+          {/* Google Review CTA Card - Enhanced and Bigger */}
           <motion.div
-            className="w-full max-w-3xl mx-auto"
+            className="w-full max-w-5xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,12 +122,15 @@ export function ReviewsSection() {
             }}
           >
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-green-500 to-saffron-500 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-              <Card className="relative overflow-hidden border-none shadow-xl bg-white rounded-2xl">
-                <CardContent className="p-8 md:p-10 text-center flex flex-col items-center justify-center">
-                  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+              {/* Animated gradient border */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-green-500 to-saffron-500 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition duration-1000 group-hover:duration-200 animate-pulse" />
+
+              <Card className="relative overflow-hidden border-2 border-blue-100 shadow-2xl bg-gradient-to-br from-white via-blue-50/30 to-white rounded-3xl">
+                <CardContent className="p-10 md:p-14 text-center flex flex-col items-center justify-center">
+                  <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full">
+                    {/* Logo with enhanced animation */}
                     <motion.div
-                      className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center p-3 ring-4 ring-green-50 shrink-0"
+                      className="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-2xl flex items-center justify-center p-4 ring-8 ring-blue-100/50 shrink-0"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{
                         type: "spring",
@@ -138,41 +141,68 @@ export function ReviewsSection() {
                       <Image
                         src="/logo.png"
                         alt="Logo"
-                        width={60}
-                        height={60}
+                        width={100}
+                        height={100}
                         className="object-contain"
                       />
                     </motion.div>
 
-                    <div className="text-center md:text-left space-y-2">
-                      <h3 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
-                        Support Our Small Business
-                      </h3>
-                      <h2 className="font-heading text-2xl md:text-3xl font-bold text-neutral-900 leading-tight">
-                        Review Us On{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
-                          Google
-                        </span>
-                      </h2>
-                      <div className="flex gap-1 justify-center md:justify-start">
+                    {/* Content - Bigger and bolder */}
+                    <div className="text-center md:text-left space-y-4 flex-1">
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        <h3 className="text-sm font-bold tracking-widest text-blue-600 uppercase mb-2">
+                          🌟 Support Our Small Business
+                        </h3>
+                        <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 leading-tight mb-4">
+                          Share Your Experience on{" "}
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400">
+                            Google
+                          </span>
+                        </h2>
+                        <p className="text-neutral-600 text-base md:text-lg max-w-xl">
+                          Your review helps us serve you better and helps others
+                          discover authentic South Indian cuisine!
+                        </p>
+                      </motion.div>
+
+                      {/* Star rating - Bigger */}
+                      <div className="flex gap-2 justify-center md:justify-start">
                         {[1, 2, 3, 4, 5].map((star) => (
-                          <Star
+                          <motion.div
                             key={star}
-                            className="w-5 h-5 fill-saffron-500 text-saffron-500"
-                          />
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.5 + star * 0.1 }}
+                            whileHover={{ scale: 1.2, rotate: 15 }}
+                          >
+                            <Star className="w-8 h-8 md:w-10 md:h-10 fill-saffron-500 text-saffron-500 drop-shadow-lg" />
+                          </motion.div>
                         ))}
                       </div>
                     </div>
 
+                    {/* CTA Button - Bigger and more prominent */}
                     <div className="md:ml-auto">
                       <motion.button
                         onClick={handleReviewClick}
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileHover={{ scale: 1.08, y: -4 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap"
+                        className="px-10 py-5 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-3 whitespace-nowrap group"
                       >
-                        <MessageSquareQuote className="w-4 h-4" />
-                        Write a Review
+                        <MessageSquareQuote className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        <span>Write a Review</span>
+                        <motion.span
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          →
+                        </motion.span>
                       </motion.button>
                     </div>
                   </div>

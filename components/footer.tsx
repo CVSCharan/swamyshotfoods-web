@@ -20,7 +20,6 @@ export function Footer() {
   return (
     <footer className="relative bg-gradient-to-br from-green-900 via-green-800 to-green-950 text-white overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-5" />
       <div className="absolute top-0 right-0 w-96 h-96 bg-saffron-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
 
