@@ -121,6 +121,9 @@ export default function LandingPage() {
                 ease: "easeOut",
               }}
             >
+              {/* Background circle for logo visibility */}
+              <div className="absolute inset-0 bg-white rounded-full shadow-2xl" />
+
               {/* Glow Effect - Softer */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-saffron-300/30 to-green-300/30 rounded-full blur-3xl"
