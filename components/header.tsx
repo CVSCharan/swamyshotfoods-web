@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/empty";
 import { useMenuItems } from "@/lib/hooks/useMenuItems";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 export function Header() {
   const [commandOpen, setCommandOpen] = useState(false);
@@ -135,7 +136,7 @@ export function Header() {
 
             {/* Right Section */}
             <div className="flex items-center gap-3">
-              <button
+              <Button
                 onClick={() => setCommandOpen(true)}
                 className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white border-2 border-neutral-200 hover:border-green-500 hover:bg-green-50 transition-all duration-200 shadow-sm hover:shadow-md group"
               >
@@ -146,7 +147,7 @@ export function Header() {
                 <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 bg-neutral-50 border border-neutral-300 rounded ml-1">
                   <span className="text-xs">⌘</span>K
                 </kbd>
-              </button>
+              </Button>
 
               {/* Mobile Menu Icons */}
               <div className="md:hidden flex items-center gap-1">

@@ -3,6 +3,7 @@
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState, useCallback } from "react";
+import { Button } from "./button";
 
 type Testimonial = {
   quote: string;
@@ -104,18 +105,18 @@ export const AnimatedTestimonials = ({
           </AnimatePresence>
 
           <div className="flex gap-4 pt-10">
-            <button
+            <Button
               onClick={handlePrev}
               className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 hover:bg-green-50 transition-colors"
             >
               <IconArrowLeft className="h-5 w-5 text-neutral-600 group-hover/button:text-green-600 transition-transform duration-300 group-hover/button:-translate-x-1" />
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleNext}
               className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 hover:bg-green-50 transition-colors"
             >
               <IconArrowRight className="h-5 w-5 text-neutral-600 group-hover/button:text-green-600 transition-transform duration-300 group-hover/button:translate-x-1" />
-            </button>
+            </Button>
           </div>
         </div>
       </div>
