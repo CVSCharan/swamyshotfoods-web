@@ -182,7 +182,8 @@
 @layer base {
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased;
-    font-family: "Inter", "Lato", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-lora), ui-serif, Georgia, Cambria, "Times New Roman",
+      Times, serif;
     line-height: 1.7;
   }
 
@@ -192,13 +193,15 @@
   h4,
   h5,
   h6 {
-    font-family: "Playfair Display", "Lora", Georgia, serif;
+    font-family: var(--font-playfair), ui-serif, Georgia, Cambria,
+      "Times New Roman", Times, serif;
     @apply text-neutral-950 tracking-tight;
     letter-spacing: -0.02em;
   }
 
   .font-heading {
-    font-family: "Playfair Display", serif;
+    font-family: var(--font-playfair), ui-serif, Georgia, Cambria,
+      "Times New Roman", Times, serif;
     font-weight: 700;
   }
 }

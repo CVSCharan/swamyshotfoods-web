@@ -205,6 +205,8 @@ export function MenuGrid({ items }: MenuGridProps) {
                   style={{
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
+                    pointerEvents:
+                      expandedItemId === item._id ? "none" : "auto",
                   }}
                 >
                   {/* Image */}
@@ -317,55 +319,57 @@ export function MenuGrid({ items }: MenuGridProps) {
 
                 {/* BACK SIDE - All Ingredients */}
                 <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedItemId(null);
-                  }}
-                  className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-blue-50 rounded-2xl overflow-hidden shadow-lg border-2 border-green-200 p-6 cursor-pointer"
+                  className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-blue-50 rounded-2xl overflow-hidden shadow-lg border-2 border-green-200"
                   style={{
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
                     transform: "rotateY(180deg)",
+                    pointerEvents:
+                      expandedItemId === item._id ? "auto" : "none",
                   }}
                 >
                   <div className="h-full flex flex-col">
-                    <div
-                      className="flex items-center justify-between mb-4"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div className="flex-1">
-                        <h4 className="text-lg font-bold text-neutral-800 flex items-center gap-2">
-                          <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                          {item.name}
-                        </h4>
-                        <p className="text-xs text-neutral-500 mt-1">
-                          All Ingredients
-                        </p>
-                      </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setExpandedItemId(null);
-                        }}
-                        className="text-neutral-400 hover:text-neutral-600 transition-colors p-1 hover:bg-neutral-100 rounded-full"
-                      >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    {/* Sticky Header */}
+                    <div className="sticky top-0 z-10 bg-gradient-to-br from-green-50 via-white to-blue-50 px-6 pt-6 pb-4 border-b border-green-200">
+                      <div className="flex items-center justify-between relative">
+                        <div className="flex-1">
+                          <h4 className="text-lg font-bold text-neutral-800 flex items-center gap-2">
+                            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-neutral-500 mt-1">
+                            All Ingredients
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log("Close button clicked for:", item.name);
+                            setExpandedItemId(null);
+                          }}
+                          className="text-neutral-400 hover:text-neutral-600 transition-colors p-2 hover:bg-white/50 rounded-full flex-shrink-0 relative z-20 cursor-pointer pointer-events-auto"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
+                          <svg
+                            className="w-5 h-5 pointer-events-none"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto">
+                    {/* Scrollable Ingredients */}
+                    <div className="flex-1 overflow-y-auto px-6 py-4">
                       <div className="flex flex-wrap gap-2">
                         {item.ingredients.map((ing: string, i: number) => {
                           const colorVariants = [
@@ -378,7 +382,6 @@ export function MenuGrid({ items }: MenuGridProps) {
                           return (
                             <span
                               key={i}
-                              onClick={(e) => e.stopPropagation()}
                               className={`text-sm font-medium ${colorClass} px-3 py-2 rounded-full border`}
                             >
                               {ing}
@@ -386,15 +389,6 @@ export function MenuGrid({ items }: MenuGridProps) {
                           );
                         })}
                       </div>
-                    </div>
-
-                    <div
-                      className="mt-4 pt-4 border-t border-neutral-200"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <p className="text-xs text-neutral-500 text-center">
-                        Click outside ingredients to flip back
-                      </p>
                     </div>
                   </div>
                 </div>
