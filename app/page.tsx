@@ -369,7 +369,7 @@ export default function LandingPage() {
                       }}
                     >
                       {config.isShopOpen
-                        ? "🎉 We&apos;re Open Now!"
+                        ? "🎉 We're Open Now!"
                         : "😔 Currently Closed"}
                     </motion.div>
                   )}
