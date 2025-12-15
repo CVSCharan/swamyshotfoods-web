@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/empty";
 import { useMenuItems } from "@/lib/hooks/useMenuItems";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 export function Header() {
   const [commandOpen, setCommandOpen] = useState(false);
@@ -135,18 +136,18 @@ export function Header() {
 
             {/* Right Section */}
             <div className="flex items-center gap-3">
-              <button
+              <Button
                 onClick={() => setCommandOpen(true)}
-                className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-neutral-100/80 hover:bg-neutral-100 transition-colors duration-200 border border-transparent hover:border-neutral-200 group"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white border-2 border-neutral-200 hover:border-green-500 hover:bg-green-50 transition-all duration-200 shadow-sm hover:shadow-md group"
               >
-                <Search className="w-4 h-4 text-neutral-500 group-hover:text-neutral-700 transition-colors" />
-                <span className="hidden sm:inline text-sm text-neutral-500 group-hover:text-neutral-700 font-medium">
+                <Search className="w-4 h-4 text-neutral-600 group-hover:text-green-600 transition-colors" />
+                <span className="hidden sm:inline text-sm text-neutral-700 group-hover:text-green-700 font-medium">
                   Search
                 </span>
-                <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium text-neutral-400 bg-white border border-neutral-200 rounded ml-1">
+                <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 bg-neutral-50 border border-neutral-300 rounded ml-1">
                   <span className="text-xs">⌘</span>K
                 </kbd>
-              </button>
+              </Button>
 
               {/* Mobile Menu Icons */}
               <div className="md:hidden flex items-center gap-1">
