@@ -17,6 +17,7 @@ import { useStoreConfigStore } from "@/lib/stores/useStoreConfigStore";
 import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
 import { ReviewsSection } from "@/components/landing/reviews-section";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
+import { ConnectionStatus } from "@/components/connection-status";
 import { Button } from "@/components/ui/button";
 import { CookingAnimation } from "@/components/animations";
 
@@ -756,6 +757,9 @@ export default function LandingPage() {
 
         {/* WhatsApp FAB */}
         <WhatsAppFab />
+
+        {/* Connection Status Indicator */}
+        <ConnectionStatus />
       </motion.div>
     </>
   );

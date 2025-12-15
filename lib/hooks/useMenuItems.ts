@@ -102,7 +102,12 @@ export function useMenuItems() {
   useEffect(() => {
     async function fetchMenuItems() {
       try {
-        const res = await fetch(`${API_URL}/menu`, { cache: "no-store" });
+        // Use force-cache for better performance since menu rarely changes
+        const res = await fetch(`${API_URL}/menu`, {
+          cache: "force-cache",
+          // @ts-ignore - Next.js specific option
+          next: { revalidate: 3600 }, // Revalidate every hour
+        });
 
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
@@ -111,8 +116,9 @@ export function useMenuItems() {
         const items = await res.json();
         setMenuItems(items);
         setError(null);
+        console.log("✅ Menu items loaded successfully");
       } catch (err) {
-        console.warn("API fetch failed, using mock data:", err);
+        console.warn("⚠️ API fetch failed, using mock data:", err);
         setMenuItems(MOCK_MENU_ITEMS);
         setError(null); // Clear error since we have fallback
       } finally {
