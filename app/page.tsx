@@ -17,6 +17,7 @@ import { useStoreConfigStore } from "@/lib/stores/useStoreConfigStore";
 import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
 import { ReviewsSection } from "@/components/landing/reviews-section";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
+import { ConnectionStatus } from "@/components/connection-status";
 import { Button } from "@/components/ui/button";
 import { CookingAnimation } from "@/components/animations";
 
@@ -107,12 +108,12 @@ export default function LandingPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Subtle decorative circles */}
-            <div className="absolute top-20 right-20 w-64 h-64 bg-green-200/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-20 w-64 h-64 bg-saffron-200/20 rounded-full blur-3xl" />
+            {/* Subtle decorative circles - hidden on mobile */}
+            <div className="hidden md:block absolute top-20 right-20 w-64 h-64 bg-green-200/20 rounded-full blur-3xl" />
+            <div className="hidden md:block absolute bottom-20 left-20 w-64 h-64 bg-saffron-200/20 rounded-full blur-3xl" />
 
             <motion.div
-              className="relative"
+              className="relative z-10 w-48 h-48 md:w-64 md:h-64 max-w-[90vw] max-h-[90vw]"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 1.2, opacity: 0 }}
@@ -121,8 +122,8 @@ export default function LandingPage() {
                 ease: "easeOut",
               }}
             >
-              {/* Background circle for logo visibility */}
-              <div className="absolute inset-0 bg-white rounded-full shadow-2xl" />
+              {/* Background circle with gradient for logo visibility */}
+              <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-white to-saffron-100 rounded-full shadow-2xl" />
 
               {/* Glow Effect - Softer */}
               <motion.div
@@ -142,8 +143,9 @@ export default function LandingPage() {
                 alt="Swamy's Hot Foods"
                 width={256}
                 height={256}
-                className="relative z-10 drop-shadow-2xl w-64 h-64"
+                className="relative z-10 drop-shadow-2xl w-full h-full object-contain p-6 md:p-8"
                 priority
+                unoptimized
               />
             </motion.div>
           </motion.div>
@@ -755,6 +757,9 @@ export default function LandingPage() {
 
         {/* WhatsApp FAB */}
         <WhatsAppFab />
+
+        {/* Connection Status Indicator */}
+        <ConnectionStatus />
       </motion.div>
     </>
   );

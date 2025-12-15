@@ -99,7 +99,7 @@ export function Footer() {
               {[
                 { href: "/", label: "Home" },
                 { href: "/menu", label: "Our Menu" },
-                { href: "/about", label: "Our Story" },
+                { href: "/about", label: "My Story" },
                 { href: "/contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.href}>

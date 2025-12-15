@@ -1,16 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
+import { useRef, useCallback } from "react";
 import { useStoreConfigStore } from "../stores/useStoreConfigStore";
 import { API_URL } from "../config";
 
 const SSE_URL = `${API_URL}/store-config/sse`;
+const REST_URL = `${API_URL}/store-config`;
 const RECONNECT_DELAY = 3000; // 3 seconds
 
 export const useStoreConfigSSE = () => {
   const eventSourceRef = useRef<EventSource | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasInitialDataRef = useRef(false);
   const { setConfig, setConnected, setError } = useStoreConfigStore();
+
+  // Fetch initial data via REST for immediate display
+  const fetchInitialData = useCallback(async () => {
+    if (hasInitialDataRef.current) return;
+
+    try {
+      const response = await fetch(REST_URL, { cache: "no-store" });
+      if (response.ok) {
+        const data = await response.json();
+        setConfig(data);
+        hasInitialDataRef.current = true;
+        console.log("✅ Initial store config loaded via REST");
+      }
+    } catch (err) {
+      console.warn("⚠️ Failed to fetch initial config:", err);
+      // Don't set error - SSE will handle it
+    }
+  }, [setConfig]);
 
   const connect = useCallback(() => {
     // Prevent multiple connections
@@ -33,6 +54,7 @@ export const useStoreConfigSSE = () => {
           const data = JSON.parse(event.data);
           // console.log("📦 Store Status Update:", data);
           setConfig(data);
+          hasInitialDataRef.current = true;
         } catch (err) {
           console.error("❌ Failed to parse SSE data:", err);
           setError("Failed to parse server data");
@@ -76,6 +98,9 @@ export const useStoreConfigSSE = () => {
   useEffect(() => {
     // Only connect on client side
     if (typeof window !== "undefined") {
+      // Fetch initial data immediately for fast display
+      fetchInitialData();
+      // Then establish SSE connection for real-time updates
       connect();
     }
 
@@ -83,7 +108,7 @@ export const useStoreConfigSSE = () => {
     return () => {
       disconnect();
     };
-  }, [connect, disconnect]);
+  }, [connect, disconnect, fetchInitialData]);
 
   return { disconnect };
 };
