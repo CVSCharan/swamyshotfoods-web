@@ -377,18 +377,33 @@ export default function LandingPage() {
                   {/* Status Message */}
                   {!config.isHoliday && config.currentStatusMsg && (
                     <motion.div
-                      className={`text-xs font-semibold py-1.5 px-4 rounded-full inline-block mx-auto border ${
+                      className={`text-sm md:text-base font-bold py-2.5 px-5 rounded-full inline-block mx-auto border-2 shadow-lg ${
                         config.currentStatusMsg.includes("Closing")
-                          ? "bg-red-50 text-red-600 border-red-200"
-                          : "bg-blue-50 text-blue-600 border-blue-200"
+                          ? "bg-red-50 text-red-600 border-red-300 shadow-red-500/20"
+                          : "bg-blue-50 text-blue-600 border-blue-300 shadow-blue-500/20"
                       }`}
                       initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 15,
-                      }}
+                      animate={
+                        config.currentStatusMsg.includes("Closing")
+                          ? {
+                              opacity: [1, 0.4, 1],
+                              scale: [1, 1.05, 1],
+                            }
+                          : { opacity: 1, scale: 1 }
+                      }
+                      transition={
+                        config.currentStatusMsg.includes("Closing")
+                          ? {
+                              duration: 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                          : {
+                              type: "spring",
+                              stiffness: 200,
+                              damping: 15,
+                            }
+                      }
                     >
                       {config.currentStatusMsg}
                     </motion.div>
