@@ -91,7 +91,7 @@ export function Header() {
                   Swamy&apos;s Hot Foods
                 </h1>
                 <p className="text-xs text-green-600 font-medium tracking-wide">
-                  Since 1944
+                  Pure Veg Delight
                 </p>
               </div>
             </Link>

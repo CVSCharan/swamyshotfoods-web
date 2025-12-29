@@ -34,17 +34,17 @@
   --color-blue-950: #172554;
 
   /* HIGHLIGHT – Saffron Gold (Warmth, Appetite, Cultural) */
-  --color-saffron-50: #fff8e7;
-  --color-saffron-100: #ffefc4;
-  --color-saffron-200: #ffe4a0;
-  --color-saffron-300: #ffd670;
-  --color-saffron-400: #ffc940;
-  --color-saffron-500: #f4c430; /* HIGHLIGHT - Accent color */
-  --color-saffron-600: #e0a820;
-  --color-saffron-700: #c08810;
-  --color-saffron-800: #9a6d08;
-  --color-saffron-900: #6b4c05;
-  --color-saffron-950: #4a3403;
+  --color-saffron-50: #fff9ed;
+  --color-saffron-100: #fff3d6;
+  --color-saffron-200: #ffe5ad;
+  --color-saffron-300: #ffd179;
+  --color-saffron-400: #ffb43d;
+  --color-saffron-500: #ff9500; /* HIGHLIGHT - Accent color - Brighter, more vibrant */
+  --color-saffron-600: #f57c00;
+  --color-saffron-700: #e65100;
+  --color-saffron-800: #bf360c;
+  --color-saffron-900: #8d2a0a;
+  --color-saffron-950: #5d1a06;
 
   /* Neutrals – Warm Cream (Comfort & Cleanliness) */
   --color-neutral-0: #ffffff;
@@ -133,7 +133,7 @@
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
   --shadow-primary: 0 8px 20px rgba(34, 197, 94, 0.25);
   --shadow-secondary: 0 8px 20px rgba(59, 130, 246, 0.2);
-  --shadow-saffron: 0 8px 20px rgba(244, 196, 48, 0.25);
+  --shadow-saffron: 0 8px 20px rgba(255, 149, 0, 0.3);
 
   /* Semantic Shadcn/UI mappings */
   --color-background: var(--color-neutral-50);
@@ -235,7 +235,7 @@
 
   /* Highlight Gradient - Warmth (Saffron) */
   .bg-saffron-gradient {
-    background: linear-gradient(135deg, #f4c430 0%, #e0a820 100%);
+    background: linear-gradient(135deg, #ff9500 0%, #f57c00 100%);
   }
 
   /* Subtle Section Gradient */
@@ -251,11 +251,7 @@
         transparent 50%
       ),
       radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
-      radial-gradient(
-        at 100% 100%,
-        rgba(244, 196, 48, 0.2) 0px,
-        transparent 50%
-      ),
+      radial-gradient(at 100% 100%, rgba(255, 149, 0, 0.2) 0px, transparent 50%),
       radial-gradient(at 0% 100%, rgba(34, 197, 94, 0.2) 0px, transparent 50%);
   }
 

@@ -78,14 +78,14 @@ export default function LandingPage() {
         await navigator.share({
           title: "Swamy's Hot Foods",
           text: "Check out this amazing vegetarian restaurant in Nellore!",
-          url: "https://swamyshotfoods.shop",
+          url: "https://www.swamyshotfoods.in/",
         });
       } catch (error) {
         console.error("Error sharing", error);
       }
     } else {
       alert("Link copied to clipboard!");
-      navigator.clipboard.writeText("https://swamyshotfoods.shop");
+      navigator.clipboard.writeText("https://www.swamyshotfoods.in/");
     }
   };
 
@@ -357,7 +357,7 @@ export default function LandingPage() {
                       className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl transform transition-all duration-300 ${
                         config.isShopOpen
                           ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-green-500/30"
-                          : "bg-gradient-to-r from-neutral-100 to-neutral-200 text-neutral-500 border-2 border-neutral-300"
+                          : "bg-gradient-to-r from-rose-100 to-rose-200 text-rose-700 border-2 border-rose-300 shadow-rose-500/20"
                       }`}
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
@@ -377,7 +377,7 @@ export default function LandingPage() {
                   {/* Status Message */}
                   {!config.isHoliday && config.currentStatusMsg && (
                     <motion.div
-                      className={`text-sm md:text-base font-bold py-2.5 px-5 rounded-full inline-block mx-auto border-2 shadow-lg ${
+                      className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl border-2 ${
                         config.currentStatusMsg.includes("Closing")
                           ? "bg-red-50 text-red-600 border-red-300 shadow-red-500/20"
                           : "bg-blue-50 text-blue-600 border-blue-300 shadow-blue-500/20"
@@ -449,21 +449,77 @@ export default function LandingPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-xl shadow-green-600/30 rounded-2xl font-bold border-2 border-green-500/20 backdrop-blur-sm">
+                <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-xl shadow-green-600/30 rounded-2xl font-bold border-2 border-green-500/20 backdrop-blur-sm relative">
                   <motion.div
+                    className="relative z-10"
                     animate={{
-                      rotate: [0, -15, 15, -15, 15, 0],
+                      rotate: [0, -12, 12, -12, 12, 0],
+                      y: [0, -2, 0, -2, 0],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1,
                       repeat: Infinity,
                       ease: "easeInOut",
-                      repeatDelay: 1,
+                      repeatDelay: 0.5,
                     }}
                   >
-                    <Phone className="w-4 h-4" />
+                    {/* Landline Phone Emoji */}
+                    <span
+                      className="text-2xl"
+                      style={{ filter: "grayscale(100%) brightness(10)" }}
+                    >
+                      ☎
+                    </span>
+
+                    {/* Ringing indicator - left wave */}
+                    <motion.div
+                      className="absolute -left-4 top-1 pointer-events-none"
+                      animate={{
+                        opacity: [0, 1, 0.5, 0],
+                        x: [-3, -5, -7],
+                        scale: [0.8, 1, 1.2],
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <svg width="10" height="10" viewBox="0 0 10 10">
+                        <path
+                          d="M3 5 Q2 3, 1 5"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                        />
+                      </svg>
+                    </motion.div>
+
+                    {/* Ringing indicator - right wave */}
+                    <motion.div
+                      className="absolute -right-4 top-1 pointer-events-none"
+                      animate={{
+                        opacity: [0, 1, 0.5, 0],
+                        x: [3, 5, 7],
+                        scale: [0.8, 1, 1.2],
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <svg width="10" height="10" viewBox="0 0 10 10">
+                        <path
+                          d="M7 5 Q8 3, 9 5"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                        />
+                      </svg>
+                    </motion.div>
                   </motion.div>
-                  Call Us
+                  <span className="relative z-10">Call Us</span>
                 </Button>
               </motion.a>
 

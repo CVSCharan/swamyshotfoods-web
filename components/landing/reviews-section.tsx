@@ -108,7 +108,23 @@ export function ReviewsSection() {
         </div>
 
         <div className="flex flex-col gap-16 items-center">
-          {/* Google Review CTA Card - Enhanced and Bigger */}
+          {/* Animated Testimonials - Now First */}
+          <motion.div
+            className="w-full"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 50,
+              damping: 20,
+              delay: 0.3,
+            }}
+          >
+            <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+          </motion.div>
+
+          {/* Google Review CTA Card - Now Below Testimonials */}
           <motion.div
             className="w-full max-w-5xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
@@ -118,7 +134,7 @@ export function ReviewsSection() {
               type: "spring",
               stiffness: 50,
               damping: 20,
-              delay: 0.3,
+              delay: 0.4,
             }}
           >
             <div className="relative group">
@@ -209,22 +225,6 @@ export function ReviewsSection() {
                 </CardContent>
               </Card>
             </div>
-          </motion.div>
-
-          {/* Animated Testimonials - Bottom Half */}
-          <motion.div
-            className="w-full"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 50,
-              damping: 20,
-              delay: 0.4,
-            }}
-          >
-            <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
           </motion.div>
         </div>
       </div>
