@@ -51,7 +51,7 @@ export function ReviewsSection() {
     window.open(
       "https://g.page/r/Cf84CB0kaZ3yEBM/review",
       "_blank",
-      "noopener,noreferrer"
+      "noopener,noreferrer",
     );
   };
 
@@ -61,7 +61,7 @@ export function ReviewsSection() {
     name: review.author_name,
     designation: `Customer • ${review.relative_time_description}`,
     src: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      review.author_name
+      review.author_name,
     )}&background=22c55e&color=fff&size=200`,
   }));
 
@@ -100,7 +100,7 @@ export function ReviewsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-neutral-600 max-w-2xl mx-auto"
+            className="text-lg text-neutral-800 max-w-2xl mx-auto font-medium"
           >
             Don&apos;t just take our word for it. Here&apos;s what our community
             loves about their experience at Swamy&apos;s Hot Foods.

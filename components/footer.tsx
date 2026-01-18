@@ -28,9 +28,9 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-8 relative z-10">
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
-          {/* Brand Section - Spans 4 columns */}
-          <div className="lg:col-span-4 space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
+          {/* Brand Section */}
+          <div className="space-y-6">
             <Link href="/" className="inline-block group">
               <div className="flex items-center gap-3">
                 <div className="relative w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl p-2 ring-2 ring-white/20 group-hover:ring-saffron-400 transition-all duration-300">
@@ -42,13 +42,14 @@ export function Footer() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-heading text-2xl font-bold text-white leading-none">
-                    <span className="text-saffron-400">Swamy&apos;s</span> Hot
-                    Foods
+                  <h3 className="font-heading text-2xl font-bold leading-none">
+                    <span className="text-saffron-400">
+                      Swamy&apos;s Hot Foods
+                    </span>
                   </h3>
                   <p className="text-xs text-green-300 font-semibold tracking-widest uppercase mt-1 flex items-center gap-1">
                     <Leaf className="w-3 h-3" />
-                    Pure Veg Since 1944
+                    Pure Veg Delight
                   </p>
                 </div>
               </div>
@@ -90,8 +91,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links - Spans 2 columns */}
-          <div className="lg:col-span-2">
+          {/* Quick Links */}
+          <div>
             <h4 className="font-heading text-sm font-bold text-saffron-400 uppercase tracking-wider mb-6">
               Explore
             </h4>
@@ -100,7 +101,6 @@ export function Footer() {
                 { href: "/", label: "Home" },
                 { href: "/menu", label: "Our Menu" },
                 { href: "/about", label: "My Story" },
-                { href: "/contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -115,8 +115,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info - Spans 3 columns */}
-          <div className="lg:col-span-3">
+          {/* Contact Info */}
+          <div>
             <h4 className="font-heading text-sm font-bold text-saffron-400 uppercase tracking-wider mb-6">
               Visit Us
             </h4>
@@ -127,7 +127,7 @@ export function Footer() {
                 </div>
                 <div className="text-sm">
                   <p className="text-green-100/90 leading-relaxed">
-                    Opposite Railway Station,
+                    Opposite Railway Station West Entrance,
                     <br />
                     Nellore, Andhra Pradesh 524001
                   </p>
@@ -138,10 +138,10 @@ export function Footer() {
                   <Phone className="w-5 h-5" />
                 </div>
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+919603415385"
                   className="text-green-100/90 hover:text-white transition-colors text-sm font-medium"
                 >
-                  +91 98765 43210
+                  +91 96034 15385
                 </a>
               </li>
               <li className="flex items-center gap-3 group">
@@ -149,45 +149,13 @@ export function Footer() {
                   <Mail className="w-5 h-5" />
                 </div>
                 <a
-                  href="mailto:hello@swamyshotfoods.com"
+                  href="mailto:swamyshotfoods@gmail.com"
                   className="text-green-100/90 hover:text-white transition-colors text-sm font-medium"
                 >
-                  hello@swamyshotfoods.com
+                  swamyshotfoods@gmail.com
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Opening Hours - Spans 3 columns */}
-          <div className="lg:col-span-3">
-            <h4 className="font-heading text-sm font-bold text-saffron-400 uppercase tracking-wider mb-6">
-              Opening Hours
-            </h4>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 space-y-4">
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-saffron-400 shrink-0" />
-                <div className="flex-1">
-                  <p className="text-green-100/60 text-xs font-medium uppercase tracking-wider">
-                    Morning
-                  </p>
-                  <p className="text-white font-bold text-lg">
-                    5:30 AM - 11:00 AM
-                  </p>
-                </div>
-              </div>
-              <div className="h-px bg-white/10" />
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-saffron-400 shrink-0" />
-                <div className="flex-1">
-                  <p className="text-green-100/60 text-xs font-medium uppercase tracking-wider">
-                    Evening
-                  </p>
-                  <p className="text-white font-bold text-lg">
-                    4:30 PM - 9:00 PM
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 

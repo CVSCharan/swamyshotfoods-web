@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Heart,
@@ -8,10 +9,127 @@ import {
   MapPin,
   ArrowRight,
   Sparkles,
+  Play,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+
+// YouTube Shorts Carousel Component
+function YouTubeShortsCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Ensure component only renders on client side to prevent hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const videos = [
+    {
+      id: "Amd_zlBK8-Y",
+      title: "Swamy's Hot Foods - Video 1",
+    },
+    {
+      id: "ihCkfW6PaWc",
+      title: "Swamy's Hot Foods - Video 2",
+    },
+    {
+      id: "RES6l22Xbh4",
+      title: "Swamy's Hot Foods - Video 3",
+    },
+  ];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
+  };
+
+  // Don't render until mounted on client
+  if (!isMounted) {
+    return (
+      <div className="relative max-w-2xl mx-auto">
+        <div className="relative bg-neutral-100 rounded-3xl overflow-hidden shadow-2xl animate-pulse">
+          <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <Play className="w-16 h-16 text-neutral-400" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="relative max-w-2xl mx-auto"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.3 }}
+    >
+      {/* Video Container */}
+      <div className="relative bg-black rounded-3xl overflow-hidden shadow-2xl">
+        {/* Aspect ratio container for vertical video (9:16) */}
+        <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+          <iframe
+            key={currentIndex}
+            src={`https://www.youtube.com/embed/${videos[currentIndex].id}?autoplay=0&controls=1&rel=0&modestbranding=1`}
+            title={videos[currentIndex].title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute top-0 left-0 w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <Button
+          onClick={handlePrev}
+          className="w-12 h-12 rounded-full bg-white hover:bg-blue-50 border-2 border-blue-200 shadow-lg"
+          variant="outline"
+        >
+          <ChevronLeft className="w-5 h-5 text-blue-600" />
+        </Button>
+
+        {/* Dots Indicator */}
+        <div className="flex gap-2">
+          {videos.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? "bg-blue-600 w-8"
+                  : "bg-neutral-300 hover:bg-neutral-400"
+              }`}
+              aria-label={`Go to video ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <Button
+          onClick={handleNext}
+          className="w-12 h-12 rounded-full bg-white hover:bg-blue-50 border-2 border-blue-200 shadow-lg"
+          variant="outline"
+        >
+          <ChevronRight className="w-5 h-5 text-blue-600" />
+        </Button>
+      </div>
+
+      {/* Video Counter */}
+      <p className="text-center mt-4 text-sm text-neutral-600 font-medium">
+        {currentIndex + 1} / {videos.length}
+      </p>
+    </motion.div>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -475,6 +593,65 @@ export default function AboutPage() {
               </CardContent>
             </div>
           </Card>
+        </div>
+      </section>
+
+      {/* Section 3.5: YouTube Shorts Carousel */}
+      <section className="py-12 sm:py-16 md:py-24 px-4 bg-gradient-to-br from-neutral-50 via-white to-blue-50/30 relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.15)_0%,transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(251,191,36,0.12)_0%,transparent_50%)]" />
+        </div>
+
+        <motion.div
+          className="absolute top-10 right-10 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <motion.div
+              className="inline-block bg-blue-100 text-blue-700 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Play className="w-4 h-4 inline-block mr-1" />
+              Behind the Scenes
+            </motion.div>
+            <motion.h2
+              className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 sm:mb-6 px-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              See Us in <span className="text-blue-600">Action</span>
+            </motion.h2>
+            <motion.p
+              className="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto px-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Watch our daily operations and experience the authentic flavors we
+              create
+            </motion.p>
+          </div>
+
+          {/* YouTube Shorts Carousel */}
+          <YouTubeShortsCarousel />
         </div>
       </section>
 

@@ -29,11 +29,6 @@ export default function LandingPage() {
   // Splash screen state
   const [showSplash, setShowSplash] = useState(true);
 
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-
   // Scroll to top and show splash screen on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,33 +39,6 @@ export default function LandingPage() {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Typewriter effect for notice board
-  useEffect(() => {
-    if (!config?.noticeMessage) return;
-
-    const handleType = () => {
-      const fullText = config.noticeMessage;
-
-      setDisplayText(
-        isDeleting
-          ? fullText.substring(0, displayText.length - 1)
-          : fullText.substring(0, displayText.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 30 : 150);
-
-      if (!isDeleting && displayText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && displayText === "") {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(handleType, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, config?.noticeMessage, loopNum, typingSpeed]);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -92,7 +60,7 @@ export default function LandingPage() {
   const handleGetDirections = () => {
     window.open(
       "https://www.google.com/maps/dir//Swamy's+Hot+Foods,+Nellore",
-      "_blank"
+      "_blank",
     );
   };
 
@@ -161,66 +129,11 @@ export default function LandingPage() {
       >
         {/* Hero Section */}
         <motion.div
-          className="relative bg-gradient-to-br from-white via-neutral-50 to-green-50/30 text-neutral-900 overflow-hidden min-h-[100vh] flex items-center"
+          className="relative bg-white text-neutral-900 overflow-hidden min-h-[100vh] flex items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Rich Mesh Gradient Background with Primary/Secondary Colors - Subtle */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,197,94,0.12)_0%,transparent_50%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(59,130,246,0.1)_0%,transparent_50%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(244,196,48,0.08)_0%,transparent_60%)]" />
-          </div>
-
-          {/* Large Geometric Clip-Path Shapes with Primary/Secondary Colors - Professional */}
-          <div
-            className="absolute top-0 right-0 w-[900px] h-[900px] bg-gradient-to-br from-green-200/60 via-green-300/40 to-transparent"
-            style={{
-              clipPath: "polygon(100% 0, 100% 65%, 35% 100%, 0 35%, 0 0)",
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-blue-200/60 via-blue-300/40 to-transparent"
-            style={{
-              clipPath: "polygon(0 100%, 65% 100%, 100% 65%, 65% 0, 0 35%)",
-            }}
-          />
-          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-green-300/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-blue-300/20 to-transparent rounded-full blur-3xl" />
-
-          {/* Decorative Corner Elements with Color Variants - Toned Down */}
-          <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-green-200/25 to-transparent rounded-full blur-3xl" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-200/25 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-green-300/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-tl from-blue-300/20 to-transparent rounded-full blur-3xl" />
-
-          {/* Animated Background Orbs - Subtle */}
-          <motion.div
-            className="absolute top-10 right-10 w-80 h-80 bg-green-200/15 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.15, 0.2, 0.15],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-10 left-10 w-80 h-80 bg-blue-200/15 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.12, 0.18, 0.12],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
           <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center text-center">
             {/* Title with Saffron Gradient */}
             <motion.h1
@@ -316,8 +229,8 @@ export default function LandingPage() {
                 </Button>
               </motion.div>
               <p className="text-neutral-600 text-xs leading-relaxed">
-                7-1-931, Opp. Nellore railway station, Railway feeders road,
-                Nellore - 524001
+                7-1-931, Opp. Nellore railway station West Entrance, Railway
+                feeders road, Nellore - 524001
               </p>
             </motion.div>
 
@@ -370,7 +283,7 @@ export default function LandingPage() {
                     >
                       {config.isShopOpen
                         ? "🎉 We're Open Now!"
-                        : "😔 Currently Closed"}
+                        : "😔 Sorry, We're Closed Now"}
                     </motion.div>
                   )}
 
@@ -449,7 +362,7 @@ export default function LandingPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-xl shadow-green-600/30 rounded-2xl font-bold border-2 border-green-500/20 backdrop-blur-sm relative">
+                <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 shadow-xl shadow-saffron-600/30 rounded-2xl font-bold border-2 border-saffron-400/20 backdrop-blur-sm relative">
                   <motion.div
                     className="relative z-10"
                     animate={{
@@ -470,54 +383,6 @@ export default function LandingPage() {
                     >
                       ☎
                     </span>
-
-                    {/* Ringing indicator - left wave */}
-                    <motion.div
-                      className="absolute -left-4 top-1 pointer-events-none"
-                      animate={{
-                        opacity: [0, 1, 0.5, 0],
-                        x: [-3, -5, -7],
-                        scale: [0.8, 1, 1.2],
-                      }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "easeOut",
-                      }}
-                    >
-                      <svg width="10" height="10" viewBox="0 0 10 10">
-                        <path
-                          d="M3 5 Q2 3, 1 5"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                        />
-                      </svg>
-                    </motion.div>
-
-                    {/* Ringing indicator - right wave */}
-                    <motion.div
-                      className="absolute -right-4 top-1 pointer-events-none"
-                      animate={{
-                        opacity: [0, 1, 0.5, 0],
-                        x: [3, 5, 7],
-                        scale: [0.8, 1, 1.2],
-                      }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "easeOut",
-                      }}
-                    >
-                      <svg width="10" height="10" viewBox="0 0 10 10">
-                        <path
-                          d="M7 5 Q8 3, 9 5"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                        />
-                      </svg>
-                    </motion.div>
                   </motion.div>
                   <span className="relative z-10">Call Us</span>
                 </Button>
@@ -557,7 +422,7 @@ export default function LandingPage() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link href="/menu">
-                  <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white font-bold shadow-xl shadow-saffron-600/30 rounded-2xl border-2 border-saffron-400/20 backdrop-blur-sm">
+                  <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold shadow-xl shadow-green-600/30 rounded-2xl border-2 border-green-500/20 backdrop-blur-sm">
                     <motion.div
                       animate={{
                         y: [0, -4, 0],
@@ -597,13 +462,111 @@ export default function LandingPage() {
 
         {/* Notice Board */}
         {config?.isNoticeActive && config?.noticeMessage && (
-          <div className="bg-saffron-50 border-y border-saffron-200 py-4 overflow-hidden">
-            <div className="container mx-auto px-4 flex items-center justify-center gap-3 text-saffron-900">
-              <Info className="w-5 h-5 flex-shrink-0 text-saffron-600" />
-              <div className="font-mono font-medium text-lg">
-                {displayText}
-                <span className="animate-pulse">|</span>
-              </div>
+          <div className="py-16 px-4 bg-gradient-to-b from-neutral-50 to-white">
+            <div className="max-w-4xl mx-auto">
+              {/* Section Header */}
+              <motion.div
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                }}
+              >
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-neutral-900 mb-3">
+                  Notice Board
+                </h2>
+                <p className="text-neutral-600 text-base md:text-lg">
+                  Important updates and announcements
+                </p>
+              </motion.div>
+
+              {/* Glassmorphic Card */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  delay: 0.2,
+                }}
+              >
+                {/* Animated Gradient Border Effect */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-saffron-500 via-orange-500 to-saffron-500 rounded-3xl blur opacity-20"
+                  animate={{
+                    opacity: [0.15, 0.25, 0.15],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <motion.div
+                  className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/40"
+                  whileHover={{ scale: 1.01 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <div className="p-6 md:p-10">
+                    <motion.div
+                      className="flex flex-col items-center justify-center text-center space-y-5"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                        delay: 0.3,
+                      }}
+                    >
+                      <motion.div
+                        className="w-14 h-14 rounded-2xl bg-gradient-to-br from-saffron-500 to-orange-600 flex items-center justify-center shadow-lg shadow-saffron-500/30"
+                        initial={{ scale: 0, rotate: -180 }}
+                        whileInView={{ scale: 1, rotate: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          damping: 15,
+                          delay: 0.4,
+                        }}
+                      >
+                        <Info className="w-7 h-7 text-white" />
+                      </motion.div>
+                      <motion.div
+                        className="w-full bg-saffron-50 rounded-2xl p-6 border border-saffron-200"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 150,
+                          damping: 15,
+                          delay: 0.5,
+                        }}
+                      >
+                        <p className="text-saffron-900 font-medium text-base md:text-lg leading-relaxed mb-4">
+                          {config.noticeMessage}
+                        </p>
+                        <div className="pt-4 border-t border-saffron-200">
+                          <p className="text-saffron-700 text-sm font-semibold italic text-right">
+                            — Management
+                          </p>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         )}
@@ -611,27 +574,6 @@ export default function LandingPage() {
         {/* Working Hours */}
         <div className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Section Header */}
-            <motion.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-              }}
-            >
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-neutral-900 mb-3">
-                Opening Hours
-              </h2>
-              <p className="text-neutral-600 text-base md:text-lg">
-                Visit us during these times to enjoy authentic South Indian
-                cuisine
-              </p>
-            </motion.div>
-
             {/* Glassmorphic Card */}
             <motion.div
               className="relative"
@@ -696,9 +638,8 @@ export default function LandingPage() {
                         <span className="font-bold text-neutral-500 uppercase tracking-wider text-xs block mb-3">
                           Monday - Saturday
                         </span>
-                        <div className="space-y-2">
+                        <div className="space-y-4">
                           <motion.div
-                            className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5"
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -709,22 +650,26 @@ export default function LandingPage() {
                               delay: 0.5,
                             }}
                           >
-                            <motion.span
-                              className="w-2 h-2 rounded-full bg-green-500"
-                              animate={{
-                                scale: [1, 1.3, 1],
-                                opacity: [1, 0.7, 1],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              }}
-                            />
-                            5:30 AM - 11:00 AM
+                            <div className="text-neutral-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
+                              Morning
+                            </div>
+                            <div className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5">
+                              <motion.span
+                                className="w-2 h-2 rounded-full bg-green-500"
+                                animate={{
+                                  scale: [1, 1.3, 1],
+                                  opacity: [1, 0.7, 1],
+                                }}
+                                transition={{
+                                  duration: 2,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }}
+                              />
+                              5:30 AM - 11:00 AM
+                            </div>
                           </motion.div>
                           <motion.div
-                            className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5"
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -735,20 +680,25 @@ export default function LandingPage() {
                               delay: 0.6,
                             }}
                           >
-                            <motion.span
-                              className="w-2 h-2 rounded-full bg-green-500"
-                              animate={{
-                                scale: [1, 1.3, 1],
-                                opacity: [1, 0.7, 1],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: 0.5,
-                              }}
-                            />
-                            4:30 PM - 9:00 PM
+                            <div className="text-neutral-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
+                              Evening
+                            </div>
+                            <div className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5">
+                              <motion.span
+                                className="w-2 h-2 rounded-full bg-green-500"
+                                animate={{
+                                  scale: [1, 1.3, 1],
+                                  opacity: [1, 0.7, 1],
+                                }}
+                                transition={{
+                                  duration: 2,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                  delay: 0.5,
+                                }}
+                              />
+                              4:30 PM - 9:00 PM
+                            </div>
                           </motion.div>
                         </div>
                       </div>
@@ -799,21 +749,6 @@ export default function LandingPage() {
                         >
                           Sunday Holiday
                         </motion.span>
-                        <motion.p
-                          className="text-neutral-500 text-sm max-w-xs mx-auto leading-relaxed"
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 150,
-                            damping: 15,
-                            delay: 0.7,
-                          }}
-                        >
-                          We take a break on Sundays to recharge and serve you
-                          better the rest of the week!
-                        </motion.p>
                       </div>
                     </motion.div>
                   </div>

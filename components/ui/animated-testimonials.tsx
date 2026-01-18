@@ -65,25 +65,23 @@ export const AnimatedTestimonials = ({
                 ease: "easeInOut",
               }}
             >
-              <motion.p className="text-2xl md:text-3xl font-medium text-neutral-700 leading-relaxed mb-8 font-heading min-h-[240px] md:min-h-[200px]">
+              <motion.p className="text-2xl md:text-3xl font-bold text-black leading-relaxed mb-8 font-heading min-h-[240px] md:min-h-[200px]">
                 &ldquo;
                 {testimonials[active].quote.split(" ").map((word, index) => (
                   <motion.span
                     key={index}
                     initial={{
-                      filter: "blur(4px)",
                       opacity: 0,
                       y: 5,
                     }}
                     animate={{
-                      filter: "blur(0px)",
                       opacity: 1,
                       y: 0,
                     }}
                     transition={{
-                      duration: 0.4,
+                      duration: 0.3,
                       ease: "easeInOut",
-                      delay: 0.05 * index, // Slower word reveal
+                      delay: 0.03 * index,
                     }}
                     className="inline-block"
                   >
