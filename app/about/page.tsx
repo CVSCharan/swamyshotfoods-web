@@ -29,17 +29,18 @@ function YouTubeShortsCarousel() {
 
   const videos = [
     {
-      id: "Amd_zlBK8-Y",
-      title: "Swamy's Hot Foods - Video 1",
+      id: "RES6l22Xbh4",
+      title: "Swamy's Hot Foods - Video 3",
     },
     {
       id: "ihCkfW6PaWc",
       title: "Swamy's Hot Foods - Video 2",
     },
     {
-      id: "RES6l22Xbh4",
-      title: "Swamy's Hot Foods - Video 3",
+      id: "Amd_zlBK8-Y",
+      title: "Swamy's Hot Foods - Video 1",
     },
+
   ];
 
   const handlePrev = () => {
@@ -104,11 +105,10 @@ function YouTubeShortsCarousel() {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "bg-blue-600 w-8"
-                  : "bg-neutral-300 hover:bg-neutral-400"
-              }`}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentIndex
+                ? "bg-blue-600 w-8"
+                : "bg-neutral-300 hover:bg-neutral-400"
+                }`}
               aria-label={`Go to video ${index + 1}`}
             />
           ))}
@@ -533,7 +533,7 @@ export default function AboutPage() {
                   <p className="text-lg sm:text-xl text-neutral-800 leading-relaxed mb-5 sm:mb-6">
                     My name is{" "}
                     <strong className="text-green-700">Sugunaram</strong>, and
-                    I&apos;m 37 years old. I am the third generation of this
+                    I&apos;m 41 years old. I am the third generation of this
                     business, carrying forward a legacy that spans over eight
                     decades.
                   </p>
@@ -541,9 +541,7 @@ export default function AboutPage() {
                   <div className="bg-blue-50 border-l-4 border-blue-500 p-4 sm:p-6 rounded-r-lg mb-5 sm:mb-6">
                     <p className="text-neutral-700 italic text-sm sm:text-base">
                       At the age of 11, I stopped my studies (6th class
-                      incomplete) to help my father at the shop. It was a
-                      sacrifice made with love and dedication to our family
-                      business.
+                      incomplete) to help my father at the shop.
                     </p>
                   </div>
 

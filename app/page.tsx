@@ -137,7 +137,7 @@ export default function LandingPage() {
           <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center text-center">
             {/* Title with Saffron Gradient */}
             <motion.h1
-              className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-8"
+              className="font-heading text-4xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -228,9 +228,10 @@ export default function LandingPage() {
                   />
                 </Button>
               </motion.div>
-              <p className="text-neutral-600 text-xs leading-relaxed">
-                7-1-931, Opp. Nellore railway station West Entrance, Railway
-                feeders road, Nellore - 524001
+              <p className="text-neutral-800 text-xs leading-relaxed font-medium">
+                7-1-931, Opp. Nellore Railway station West entrance,
+                <br />
+                Railway feeders road, Nellore - 524001
               </p>
             </motion.div>
 
@@ -260,18 +261,21 @@ export default function LandingPage() {
                         damping: 10,
                       }}
                     >
-                      <CookingAnimation variant="all" size="sm" />
+                      <img
+                        src="/cooking.gif"
+                        alt="Cooking"
+                        className="w-16 h-16 object-contain"
+                      />
                       <span className="font-bold text-saffron-700 text-base tracking-wide">
-                        Cooking Fresh Food! 🔥
+                        Cooking
                       </span>
                     </motion.div>
                   ) : (
                     <motion.div
-                      className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl transform transition-all duration-300 ${
-                        config.isShopOpen
-                          ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-green-500/30"
-                          : "bg-gradient-to-r from-rose-100 to-rose-200 text-rose-700 border-2 border-rose-300 shadow-rose-500/20"
-                      }`}
+                      className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl transform transition-all duration-300 ${config.isShopOpen
+                        ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-green-500/30"
+                        : "bg-gradient-to-r from-rose-100 to-rose-200 text-rose-700 border-2 border-rose-300 shadow-rose-500/20"
+                        }`}
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       whileHover={{ scale: 1.05 }}
@@ -290,32 +294,31 @@ export default function LandingPage() {
                   {/* Status Message */}
                   {!config.isHoliday && config.currentStatusMsg && (
                     <motion.div
-                      className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl border-2 ${
-                        config.currentStatusMsg.includes("Closing")
-                          ? "bg-red-50 text-red-600 border-red-300 shadow-red-500/20"
-                          : "bg-blue-50 text-blue-600 border-blue-300 shadow-blue-500/20"
-                      }`}
+                      className={`py-3 px-6 rounded-2xl font-bold text-lg shadow-xl border-2 ${config.currentStatusMsg.includes("Closing")
+                        ? "bg-red-50 text-red-600 border-red-300 shadow-red-500/20"
+                        : "bg-blue-50 text-blue-600 border-blue-300 shadow-blue-500/20"
+                        }`}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={
                         config.currentStatusMsg.includes("Closing")
                           ? {
-                              opacity: [1, 0.4, 1],
-                              scale: [1, 1.05, 1],
-                            }
+                            opacity: [1, 0.4, 1],
+                            scale: [1, 1.05, 1],
+                          }
                           : { opacity: 1, scale: 1 }
                       }
                       transition={
                         config.currentStatusMsg.includes("Closing")
                           ? {
-                              duration: 1.5,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }
                           : {
-                              type: "spring",
-                              stiffness: 200,
-                              damping: 15,
-                            }
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 15,
+                          }
                       }
                     >
                       {config.currentStatusMsg}
@@ -462,11 +465,11 @@ export default function LandingPage() {
 
         {/* Notice Board */}
         {config?.isNoticeActive && config?.noticeMessage && (
-          <div className="py-16 px-4 bg-gradient-to-b from-neutral-50 to-white">
+          <div className="-mt-12 py-8 px-4 bg-gradient-to-b from-neutral-50 to-white">
             <div className="max-w-4xl mx-auto">
               {/* Section Header */}
               <motion.div
-                className="text-center mb-12"
+                className="text-center mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -479,9 +482,6 @@ export default function LandingPage() {
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-neutral-900 mb-3">
                   Notice Board
                 </h2>
-                <p className="text-neutral-600 text-base md:text-lg">
-                  Important updates and announcements
-                </p>
               </motion.div>
 
               {/* Glassmorphic Card */}
@@ -529,20 +529,6 @@ export default function LandingPage() {
                       }}
                     >
                       <motion.div
-                        className="w-14 h-14 rounded-2xl bg-gradient-to-br from-saffron-500 to-orange-600 flex items-center justify-center shadow-lg shadow-saffron-500/30"
-                        initial={{ scale: 0, rotate: -180 }}
-                        whileInView={{ scale: 1, rotate: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 15,
-                          delay: 0.4,
-                        }}
-                      >
-                        <Info className="w-7 h-7 text-white" />
-                      </motion.div>
-                      <motion.div
                         className="w-full bg-saffron-50 rounded-2xl p-6 border border-saffron-200"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -572,7 +558,7 @@ export default function LandingPage() {
         )}
 
         {/* Working Hours */}
-        <div className="py-16 px-4">
+        <div className="-mt-8 py-8 px-4">
           <div className="max-w-4xl mx-auto">
             {/* Glassmorphic Card */}
             <motion.div
@@ -606,6 +592,25 @@ export default function LandingPage() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <div className="p-6 md:p-10">
+                  {/* Section Header Inside Card */}
+                  <motion.div
+                    className="text-center mb-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 15,
+                      delay: 0.2,
+                    }}
+                  >
+                    <h2 className="font-heading text-3xl md:text-4xl font-bold text-neutral-900 mb-2">
+                      Working Hours
+                    </h2>
+                  </motion.div>
+
+                  {/* Working Hours Content */}
                   <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                     {/* Monday - Saturday */}
                     <motion.div
@@ -620,23 +625,9 @@ export default function LandingPage() {
                         delay: 0.3,
                       }}
                     >
-                      <motion.div
-                        className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30"
-                        initial={{ scale: 0, rotate: -180 }}
-                        whileInView={{ scale: 1, rotate: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 15,
-                          delay: 0.4,
-                        }}
-                      >
-                        <Clock className="w-7 h-7 text-white" />
-                      </motion.div>
                       <div>
-                        <span className="font-bold text-neutral-500 uppercase tracking-wider text-xs block mb-3">
-                          Monday - Saturday
+                        <span className="font-bold text-black-500 uppercase tracking-wider text-xs block mb-3">
+                          Monday to Saturday
                         </span>
                         <div className="space-y-4">
                           <motion.div
@@ -650,7 +641,7 @@ export default function LandingPage() {
                               delay: 0.5,
                             }}
                           >
-                            <div className="text-neutral-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
+                            <div className="text-black-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
                               Morning
                             </div>
                             <div className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5">
@@ -680,7 +671,7 @@ export default function LandingPage() {
                               delay: 0.6,
                             }}
                           >
-                            <div className="text-neutral-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
+                            <div className="text-black-500 text-xs font-semibold uppercase tracking-wider mb-1.5">
                               Evening
                             </div>
                             <div className="flex items-center justify-center gap-3 text-base md:text-lg font-semibold text-neutral-800 bg-green-50 rounded-xl py-2.5 px-5">
@@ -747,7 +738,7 @@ export default function LandingPage() {
                             delay: 0.6,
                           }}
                         >
-                          Sunday Holiday
+                          Sunday's Holiday
                         </motion.span>
                       </div>
                     </motion.div>
