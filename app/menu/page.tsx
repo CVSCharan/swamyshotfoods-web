@@ -43,7 +43,7 @@ interface MenuItem {
     startTime: string;
     endTime: string;
   };
-  ingredients: string[];
+  ingredients: string;
   allergens?: string[];
   dietaryLabels: string[];
   priority: number;

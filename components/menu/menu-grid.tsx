@@ -29,7 +29,7 @@ interface MenuItem {
     startTime: string;
     endTime: string;
   };
-  ingredients: string[];
+  ingredients: string;
   allergens?: string[];
   dietaryLabels: string[];
   priority: number;
@@ -71,7 +71,6 @@ function formatTimings(item: MenuItem): string {
 
 export function MenuGrid({ items }: MenuGridProps) {
   const [timeSlotFilter, setTimeSlotFilter] = useState("All");
-  const [expandedItemId, setExpandedItemId] = useState<string | null>(null);
 
   // Console log all menu items
   console.log("📋 All Menu Items:", items);
@@ -186,29 +185,9 @@ export function MenuGrid({ items }: MenuGridProps) {
               className="group h-full"
               style={{ perspective: "1000px" }}
             >
-              <motion.div
-                className="relative w-full h-full"
-                animate={{
-                  rotateY: expandedItemId === item._id ? 180 : 0,
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
-              >
+              <motion.div className="relative w-full h-full">
                 {/* FRONT SIDE - Menu Item Card */}
-                <div
-                  className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-neutral-100 cursor-pointer h-full flex flex-col"
-                  style={{
-                    backfaceVisibility: "hidden",
-                    WebkitBackfaceVisibility: "hidden",
-                    pointerEvents:
-                      expandedItemId === item._id ? "none" : "auto",
-                  }}
-                >
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-neutral-100 h-full flex flex-col">
                   {/* Image */}
                   <div className="relative h-56 overflow-hidden">
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
@@ -278,120 +257,15 @@ export function MenuGrid({ items }: MenuGridProps) {
                         Key Ingredients
                       </p>
                       <div className="flex flex-wrap gap-1.5">
-                        {item.ingredients
-                          .slice(0, 4)
-                          .map((ing: string, i: number) => {
-                            const colorVariants = [
-                              "text-green-700 bg-gradient-to-r from-green-50 to-green-100 border-green-200",
-                              "text-saffron-700 bg-gradient-to-r from-saffron-50 to-saffron-100 border-saffron-200",
-                              "text-blue-700 bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200",
-                            ];
-                            const colorClass = colorVariants[i % 3];
-
-                            return (
-                              <span
-                                key={i}
-                                className={`text-xs font-medium ${colorClass} px-3 py-1.5 rounded-full border hover:shadow-md transition-shadow`}
-                              >
-                                {ing.length > 30
-                                  ? ing.substring(0, 30) + "..."
-                                  : ing}
-                              </span>
-                            );
-                          })}
-                        {item.ingredients.length > 4 && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpandedItemId(
-                                expandedItemId === item._id ? null : item._id
-                              );
-                            }}
-                            className="text-xs font-medium text-neutral-600 bg-neutral-100 px-3 py-1.5 rounded-full border border-neutral-200 hover:bg-green-100 hover:text-green-700 hover:border-green-300 transition-all cursor-pointer"
-                          >
-                            +{item.ingredients.length - 4} more
-                          </button>
-                        )}
+                        <span className="text-xs font-medium text-green-700 bg-gradient-to-r from-green-50 to-green-100 border border-green-200 px-3 py-1.5 rounded-3xl hover:shadow-md transition-shadow">
+                          {item.ingredients}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* BACK SIDE - All Ingredients */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-blue-50 rounded-2xl overflow-hidden shadow-lg border-2 border-green-200"
-                  style={{
-                    backfaceVisibility: "hidden",
-                    WebkitBackfaceVisibility: "hidden",
-                    transform: "rotateY(180deg)",
-                    pointerEvents:
-                      expandedItemId === item._id ? "auto" : "none",
-                  }}
-                >
-                  <div className="h-full flex flex-col">
-                    {/* Sticky Header */}
-                    <div className="sticky top-0 z-10 bg-gradient-to-br from-green-50 via-white to-blue-50 px-6 pt-6 pb-4 border-b border-green-200">
-                      <div className="flex items-center justify-between relative">
-                        <div className="flex-1">
-                          <h4 className="text-lg font-bold text-neutral-800 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                            {item.name}
-                          </h4>
-                          <p className="text-xs text-neutral-500 mt-1">
-                            All Ingredients
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            console.log("Close button clicked for:", item.name);
-                            setExpandedItemId(null);
-                          }}
-                          className="text-neutral-400 hover:text-neutral-600 transition-colors p-2 hover:bg-white/50 rounded-full flex-shrink-0 relative z-20 cursor-pointer pointer-events-auto"
-                        >
-                          <svg
-                            className="w-5 h-5 pointer-events-none"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
 
-                    {/* Scrollable Ingredients */}
-                    <div className="flex-1 overflow-y-auto px-6 py-4">
-                      <div className="flex flex-wrap gap-2">
-                        {item.ingredients.map((ing: string, i: number) => {
-                          const colorVariants = [
-                            "text-green-700 bg-gradient-to-r from-green-50 to-green-100 border-green-200",
-                            "text-saffron-700 bg-gradient-to-r from-saffron-50 to-saffron-100 border-saffron-200",
-                            "text-blue-700 bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200",
-                          ];
-                          const colorClass = colorVariants[i % 3];
-
-                          return (
-                            <span
-                              key={i}
-                              className={`text-sm font-medium ${colorClass} px-3 py-2 rounded-full border`}
-                            >
-                              {ing}
-                            </span>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </motion.div>
             </motion.div>
           ))}

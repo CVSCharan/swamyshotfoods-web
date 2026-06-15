@@ -26,11 +26,16 @@ import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 export function Header() {
+  const [mounted, setMounted] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { menuItems } = useMenuItems();
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle scroll effect
   useEffect(() => {
@@ -178,75 +183,77 @@ export function Header() {
       <div className="h-16 sm:h-20" />
 
       {/* Command Palette */}
-      <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
-        <div className="border-b border-neutral-200 bg-neutral-50/50 px-4 py-3">
-          <p className="text-xs font-medium text-neutral-500">
-            Search our menu for delicious items...
-          </p>
-        </div>
-        <CommandInput
-          placeholder="Search for idli, dosa, vada..."
-          className="border-none focus:ring-0"
-        />
-        <CommandList className="max-h-[500px]">
-          <CommandEmpty>
-            <Empty className="border-0 py-8">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <UtensilsCrossed className="text-muted-foreground" />
-                </EmptyMedia>
-                <EmptyTitle>No menu items found</EmptyTitle>
-                <EmptyDescription>
-                  Try searching with different keywords
-                </EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          </CommandEmpty>
+      {mounted && (
+        <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
+          <div className="border-b border-neutral-200 bg-neutral-50/50 px-4 py-3">
+            <p className="text-xs font-medium text-neutral-500">
+              Search our menu for delicious items...
+            </p>
+          </div>
+          <CommandInput
+            placeholder="Search for idli, dosa, vada..."
+            className="border-none focus:ring-0"
+          />
+          <CommandList className="max-h-[500px]">
+            <CommandEmpty>
+              <Empty className="border-0 py-8">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <UtensilsCrossed className="text-muted-foreground" />
+                  </EmptyMedia>
+                  <EmptyTitle>No menu items found</EmptyTitle>
+                  <EmptyDescription>
+                    Try searching with different keywords
+                  </EmptyDescription>
+                </EmptyHeader>
+              </Empty>
+            </CommandEmpty>
 
-          {menuItems.length > 0 && (
-            <CommandGroup heading="Menu Items" className="p-2">
-              <div className="grid gap-2">
-                {menuItems.map((item) => (
-                  <CommandItem
-                    key={item._id}
-                    value={`${item.name} ${item.desc} ${item.ingredients}`}
-                    onSelect={() => {
-                      router.push("/menu");
-                      setCommandOpen(false);
-                    }}
-                    className="p-2 rounded-lg aria-selected:bg-neutral-100"
-                  >
-                    <div className="flex gap-3 w-full">
-                      <div className="relative w-12 h-12 rounded-md overflow-hidden bg-neutral-100 flex-shrink-0">
-                        {item.imgSrc ? (
-                          <Image
-                            src={item.imgSrc}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <UtensilsCrossed className="w-4 h-4 text-neutral-400" />
-                          </div>
-                        )}
+            {menuItems.length > 0 && (
+              <CommandGroup heading="Menu Items" className="p-2">
+                <div className="grid gap-2">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={item._id}
+                      value={`${item.name} ${item.desc} ${item.ingredients}`}
+                      onSelect={() => {
+                        router.push("/menu");
+                        setCommandOpen(false);
+                      }}
+                      className="p-2 rounded-lg aria-selected:bg-neutral-100"
+                    >
+                      <div className="flex gap-3 w-full">
+                        <div className="relative w-12 h-12 rounded-md overflow-hidden bg-neutral-100 flex-shrink-0">
+                          {item.imgSrc ? (
+                            <Image
+                              src={item.imgSrc}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <UtensilsCrossed className="w-4 h-4 text-neutral-400" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                          <h3 className="font-medium text-neutral-900 text-sm truncate">
+                            {item.name}
+                          </h3>
+                          <p className="text-xs text-neutral-500 truncate">
+                            {item.desc}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <h3 className="font-medium text-neutral-900 text-sm truncate">
-                          {item.name}
-                        </h3>
-                        <p className="text-xs text-neutral-500 truncate">
-                          {item.desc}
-                        </p>
-                      </div>
-                    </div>
-                  </CommandItem>
-                ))}
-              </div>
-            </CommandGroup>
-          )}
-        </CommandList>
-      </CommandDialog>
+                    </CommandItem>
+                  ))}
+                </div>
+              </CommandGroup>
+            )}
+          </CommandList>
+        </CommandDialog>
+      )}
     </>
   );
 }

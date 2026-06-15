@@ -17,7 +17,7 @@ export interface MenuItem {
     startTime: string;
     endTime: string;
   };
-  ingredients: string[];
+  ingredients: string;
   allergens?: string[];
   dietaryLabels: string[];
   priority: number;
@@ -31,7 +31,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 40,
     desc: "Soft and fluffy steamed rice cakes served with chutney and sambar.",
     morningTimings: { startTime: "08:00", endTime: "12:00" },
-    ingredients: ["Rice", "Urad Dal"],
+    ingredients: "Rice, Urad Dal",
     dietaryLabels: ["vegetarian", "vegan", "gluten-free"],
     priority: 1,
     imgSrc: "/images/idli.jpg",
@@ -42,7 +42,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 60,
     desc: "Crispy crepe made from fermented batter, roasted with ghee.",
     eveningTimings: { startTime: "17:45", endTime: "21:30" },
-    ingredients: ["Rice", "Urad Dal", "Ghee"],
+    ingredients: "Rice, Urad Dal, Ghee",
     dietaryLabels: ["vegetarian"],
     priority: 2,
     imgSrc: "/images/dosa.jpg",
@@ -53,7 +53,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 50,
     desc: "Crispy deep-fried savory donuts made from lentil batter.",
     morningTimings: { startTime: "08:00", endTime: "12:00" },
-    ingredients: ["Urad Dal", "Spices"],
+    ingredients: "Urad Dal, Spices",
     dietaryLabels: ["vegetarian", "vegan"],
     priority: 3,
     imgSrc: "/images/vada.jpg",
@@ -64,7 +64,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 55,
     desc: "Comforting rice and lentil dish seasoned with black pepper, cumin, and ghee.",
     morningTimings: { startTime: "08:00", endTime: "12:00" },
-    ingredients: ["Rice", "Moong Dal", "Ghee"],
+    ingredients: "Rice, Moong Dal, Ghee",
     dietaryLabels: ["vegetarian"],
     priority: 4,
     imgSrc: "/images/pongal.jpg",
@@ -75,7 +75,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 70,
     desc: "Deep-fried bread served with potato masala.",
     morningTimings: { startTime: "08:00", endTime: "12:00" },
-    ingredients: ["Wheat Flour"],
+    ingredients: "Wheat Flour",
     allergens: ["Gluten"],
     dietaryLabels: ["vegetarian"],
     priority: 5,
@@ -87,7 +87,7 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
     price: 65,
     desc: "Whole green gram lentil crepe served with ginger chutney.",
     eveningTimings: { startTime: "17:45", endTime: "21:30" },
-    ingredients: ["Green Gram", "Ginger", "Spices"],
+    ingredients: "Green Gram, Ginger, Spices",
     dietaryLabels: ["vegetarian", "vegan", "gluten-free"],
     priority: 6,
     imgSrc: "/images/pesarattu.jpg",
