@@ -194,7 +194,7 @@ export function Header() {
             placeholder="Search for idli, dosa, vada..."
             className="border-none focus:ring-0"
           />
-          <CommandList className="max-h-[500px]">
+          <CommandList className="max-h-[60vh]">
             <CommandEmpty>
               <Empty className="border-0 py-8">
                 <EmptyHeader>

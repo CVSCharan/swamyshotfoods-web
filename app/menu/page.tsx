@@ -104,7 +104,7 @@ export default async function MenuPage() {
             <span>Authentic Flavors</span>
           </div>
 
-          <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/80">
+          <h1 className="font-heading text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/80">
             Our Menu
           </h1>
 

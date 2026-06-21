@@ -197,7 +197,7 @@ export function ReviewsSection() {
                             transition={{ delay: 0.5 + star * 0.1 }}
                             whileHover={{ scale: 1.2, rotate: 15 }}
                           >
-                            <Star className="w-8 h-8 md:w-10 md:h-10 fill-saffron-500 text-saffron-500 drop-shadow-lg" />
+                            <Star className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 fill-saffron-500 text-saffron-500 drop-shadow-lg" />
                           </motion.div>
                         ))}
                       </div>
@@ -209,7 +209,7 @@ export function ReviewsSection() {
                         onClick={handleReviewClick}
                         whileHover={{ scale: 1.08, y: -4 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-10 py-5 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-3 whitespace-nowrap group"
+                        className="px-6 py-4 md:px-10 md:py-5 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-3 whitespace-nowrap group"
                       >
                         <MessageSquareQuote className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                         <span>Write a Review</span>

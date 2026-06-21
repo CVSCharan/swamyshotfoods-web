@@ -9,6 +9,7 @@ interface StoreConfig {
   noticeMessage: string;
   description: string;
   currentStatusMsg: string;
+  ownerAvatarUrl?: string;
 }
 
 interface StoreConfigStore {

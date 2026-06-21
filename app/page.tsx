@@ -135,9 +135,32 @@ export default function LandingPage() {
           transition={{ duration: 0.6 }}
         >
           <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center text-center">
+            {/* Owner Profile Picture (Optional) */}
+            <AnimatePresence>
+              {config?.ownerAvatarUrl && (
+                <motion.div
+                  className="mb-6 relative"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
+                >
+                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white shadow-xl shadow-saffron-500/20 overflow-hidden relative bg-white flex items-center justify-center mx-auto">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={config.ownerAvatarUrl}
+                      alt="Owner Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* Decorative online badge */}
+                  <div className="absolute bottom-1 right-2 w-5 h-5 bg-green-500 border-2 border-white rounded-full shadow-md animate-pulse"></div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Title with Saffron Gradient */}
             <motion.h1
-              className="font-heading text-4xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-8"
+              className="font-heading text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -348,7 +371,7 @@ export default function LandingPage() {
 
             {/* Action Buttons - Compact with Animated Icons */}
             <motion.div
-              className="flex flex-wrap justify-center gap-3 w-full max-w-xl"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 w-full max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -540,7 +563,7 @@ export default function LandingPage() {
                           delay: 0.5,
                         }}
                       >
-                        <p className="text-saffron-900 font-medium text-base md:text-lg leading-relaxed mb-4">
+                        <p className="text-saffron-900 font-medium text-base md:text-lg leading-relaxed mb-4 whitespace-pre-wrap">
                           {config.noticeMessage}
                         </p>
                         <div className="pt-4 border-t border-saffron-200">
@@ -558,7 +581,7 @@ export default function LandingPage() {
         )}
 
         {/* Working Hours */}
-        <div className="-mt-8 py-8 px-4">
+        <div className="-mt-8 py-8 px-4 overflow-x-hidden">
           <div className="max-w-4xl mx-auto">
             {/* Glassmorphic Card */}
             <motion.div
