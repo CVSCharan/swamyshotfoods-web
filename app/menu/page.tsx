@@ -27,6 +27,7 @@ export const metadata: Metadata = generatePageMetadata({
 });
 
 import { MenuGrid } from "@/components/menu/menu-grid";
+import { MenuFooterMessage } from "@/components/menu/menu-footer-message";
 import { Sparkles, UtensilsCrossed } from "lucide-react";
 
 interface MenuItem {
@@ -150,6 +151,8 @@ export default async function MenuPage() {
           ) : (
             <MenuGrid items={menuItems} />
           )}
+
+          <MenuFooterMessage />
         </div>
       </section>
     </div>
