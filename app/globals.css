@@ -197,12 +197,18 @@
       "Times New Roman", Times, serif;
     @apply text-neutral-950 tracking-tight;
     letter-spacing: -0.02em;
+    line-height: 1.4 !important;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
   }
 
   .font-heading {
     font-family: var(--font-playfair), ui-serif, Georgia, Cambria,
       "Times New Roman", Times, serif;
     font-weight: 700;
+    line-height: 1.4 !important;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
   }
 }
 
@@ -258,6 +264,23 @@
   /* Legacy gradients for backward compatibility */
   .bg-indigo-gradient {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  }
+
+  /* Safe Area Utility Classes for PWA / Mobile */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .h-header-safe {
+    height: calc(4rem + env(safe-area-inset-top, 0px));
+  }
+  .h-nav-safe {
+    height: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .pb-content-safe {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
   }
 
   /* Text with old-style numerals (great for menus) */

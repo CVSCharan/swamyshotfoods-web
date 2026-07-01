@@ -47,7 +47,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Keyboard shortcut for command palette (Cmd+K / Ctrl+K)
+  // Keyboard shortcut for command palette
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -62,8 +62,8 @@ export function Header() {
 
   const navItems = [
     { href: "/", label: "Home", icon: Home },
-    { href: "/about", label: "About", icon: Info },
     { href: "/menu", label: "Menu", icon: UtensilsCrossed },
+    { href: "/about", label: "About", icon: Info },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -91,7 +91,7 @@ export function Header() {
                 />
               </div>
 
-              <div className="hidden sm:block">
+              <div>
                 <h1 className="font-heading text-lg sm:text-xl font-bold text-saffron-500 leading-tight group-hover:text-saffron-600 transition-colors duration-300">
                   Swamy&apos;s Hot Foods
                 </h1>
@@ -102,7 +102,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.href);
@@ -125,10 +125,10 @@ export function Header() {
                       />
                     )}
                     <span
-                      className={`relative flex items-center gap-2 text-sm font-medium transition-colors duration-200 ${
+                      className={`relative flex items-center gap-2 text-sm font-bold transition-colors duration-200 ${
                         active
                           ? "text-green-700"
-                          : "text-neutral-600 group-hover:text-green-600"
+                          : "text-neutral-500 hover:text-green-600"
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -139,48 +139,68 @@ export function Header() {
               })}
             </nav>
 
-            {/* Right Section */}
+            {/* Right Section (Search button is visible everywhere) */}
             <div className="flex items-center gap-3">
               <Button
                 onClick={() => setCommandOpen(true)}
                 className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white border-2 border-neutral-200 hover:border-green-500 hover:bg-green-50 transition-all duration-200 shadow-sm hover:shadow-md group"
               >
                 <Search className="w-4 h-4 text-neutral-600 group-hover:text-green-600 transition-colors" />
-                <span className="hidden sm:inline text-sm text-neutral-700 group-hover:text-green-700 font-medium">
+                <span className="hidden sm:inline text-sm text-neutral-700 group-hover:text-green-700 font-bold">
                   Search
                 </span>
-                <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 bg-neutral-50 border border-neutral-300 rounded ml-1">
+                <kbd className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-bold text-neutral-500 bg-neutral-50 border border-neutral-300 rounded ml-1">
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </Button>
-
-              {/* Mobile Menu Icons */}
-              <div className="md:hidden flex items-center gap-1">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.href);
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`p-2 rounded-full transition-colors ${
-                        active
-                          ? "bg-green-50 text-green-600"
-                          : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
-                      }`}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </Link>
-                  );
-                })}
-              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Spacer */}
+      {/* Spacer for Top Header */}
       <div className="h-16 sm:h-20" />
+
+      {/* --- MOBILE BOTTOM NAVIGATION BAR --- */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-nav-safe pb-safe bg-white/90 backdrop-blur-xl border-t border-neutral-200 shadow-[0_-4px_24px_rgba(0,0,0,0.05)] z-50 flex items-center justify-around px-2">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex flex-col items-center justify-center w-20 h-14 relative"
+            >
+              {active && (
+                <motion.div
+                  layoutId="activeMobileTab"
+                  className="absolute inset-0 bg-green-50 rounded-2xl mx-1 my-1"
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30,
+                  }}
+                />
+              )}
+              <div
+                className={`relative flex flex-col items-center gap-1 transition-colors duration-200 ${
+                  active ? "text-green-600" : "text-neutral-500"
+                }`}
+              >
+                <Icon
+                  className={`w-5 h-5 transition-transform duration-200 ${
+                    active ? "scale-110 stroke-[2.5px]" : "stroke-[2px]"
+                  }`}
+                />
+                <span className="text-[10px] font-bold tracking-wide">
+                  {item.label}
+                </span>
+              </div>
+            </Link>
+          );
+        })}
+      </nav>
 
       {/* Command Palette */}
       {mounted && (

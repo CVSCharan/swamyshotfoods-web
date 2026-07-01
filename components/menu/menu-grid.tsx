@@ -167,9 +167,9 @@ export function MenuGrid({ items }: MenuGridProps) {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Grid / List */}
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8"
         variants={container}
         initial="hidden"
         animate="show"
@@ -187,61 +187,61 @@ export function MenuGrid({ items }: MenuGridProps) {
             >
               <motion.div className="relative w-full h-full">
                 {/* FRONT SIDE - Menu Item Card */}
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-neutral-100 h-full flex flex-col">
+                <div className="bg-white md:rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:shadow-lg hover:shadow-2xl transition-all duration-300 border-y md:border border-neutral-100 h-full flex flex-col -mx-4 md:mx-0">
                   {/* Image */}
-                  <div className="relative h-56 overflow-hidden">
+                  <div className="relative h-64 md:h-56 overflow-hidden">
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
 
                     <motion.div
                       className="relative h-full w-full"
                       style={{
-                        clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
+                        clipPath: "polygon(0 0, 100% 0, 100% 90%, 0 100%)",
                       }}
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                       <MenuItemImage src={item.imgSrc} alt={item.name} />
                     </motion.div>
 
-                    <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+                    <div className="absolute bottom-6 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-lg">
                       <Clock className="w-3 h-3" />
                       {formatTimings(item)}
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex-1 flex flex-col">
+                  <div className="p-6 md:p-5 flex-1 flex flex-col -mt-4 relative z-20 bg-white">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h3 className="font-heading text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
+                        <h3 className="font-heading text-2xl md:text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
                           {item.name}
                         </h3>
-                        <p className="text-3xl font-extrabold text-secondary mt-1 tabular-nums tracking-tight">
+                        <p className="text-3xl md:text-2xl font-extrabold text-secondary mt-1 tabular-nums tracking-tight">
                           ₹{item.price}
                         </p>
                       </div>
                       {item.priority < 2 && (
-                        <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100">
-                          <Flame className="w-3 h-3 fill-current" />
+                        <span className="flex items-center gap-1 text-[10px] md:text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2.5 py-1 rounded-full border border-saffron-100 shadow-sm mt-1">
+                          <Flame className="w-3.5 h-3.5 fill-current" />
                           Popular
                         </span>
                       )}
                     </div>
 
-                    <p className="text-sm text-neutral-600 mb-4 line-clamp-2">
+                    <p className="text-sm md:text-sm text-neutral-600 mb-5 line-clamp-2 md:line-clamp-3">
                       {item.desc}
                     </p>
 
                     {item.allergens && item.allergens.length > 0 && (
-                      <div className="mb-3 p-2 bg-amber-50 border border-amber-200 rounded-lg">
-                        <p className="text-[10px] font-semibold text-amber-800 uppercase tracking-wide mb-1">
+                      <div className="mb-4 p-2.5 bg-amber-50/50 border border-amber-100 rounded-xl">
+                        <p className="text-[10px] font-bold text-amber-800 uppercase tracking-wider mb-1.5">
                           Allergens
                         </p>
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap gap-1.5">
                           {item.allergens.map((allergen, i) => (
                             <span
                               key={i}
-                              className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md"
+                              className="text-[10px] text-amber-700 bg-amber-100/50 px-2 py-0.5 rounded-md font-semibold"
                             >
                               {allergen}
                             </span>
@@ -251,21 +251,19 @@ export function MenuGrid({ items }: MenuGridProps) {
                     )}
 
                     {/* Ingredients Preview */}
-                    <div className="pt-3 border-t border-neutral-100">
-                      <p className="text-xs font-semibold text-neutral-600 mb-2 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                    <div className="pt-4 border-t border-neutral-100 mt-auto">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2.5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-sm shadow-green-500/50"></span>
                         Key Ingredients
                       </p>
                       <div className="flex flex-wrap gap-1.5">
-                        <span className="text-xs font-medium text-green-700 bg-gradient-to-r from-green-50 to-green-100 border border-green-200 px-3 py-1.5 rounded-3xl hover:shadow-md transition-shadow">
+                        <span className="text-xs font-semibold text-green-700 bg-gradient-to-r from-green-50 to-green-100/50 border border-green-200/60 px-3 py-1.5 rounded-3xl">
                           {item.ingredients}
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
               </motion.div>
             </motion.div>
           ))}

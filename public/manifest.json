@@ -1,0 +1,24 @@
+{
+  "name": "Swamy's Hot Foods",
+  "short_name": "Swamy's",
+  "description": "Authentic South Indian Cuisine Since 1944. Pure vegetarian restaurant.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2a241f",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

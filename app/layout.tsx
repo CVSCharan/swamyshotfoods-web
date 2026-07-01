@@ -89,6 +89,12 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/logo.png",
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Swamy's",
+  },
 };
 
 // Viewport configuration (Next.js 16+ requires separate export)
@@ -97,6 +103,8 @@ export const viewport = {
   initialScale: 1,
   themeColor: "#16a34a",
 };
+
+import { PWARegistrar } from "@/components/pwa-registrar";
 
 export default function RootLayout({
   children,
@@ -109,6 +117,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <PWARegistrar />
       </body>
     </html>
   );
