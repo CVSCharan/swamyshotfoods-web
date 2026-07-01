@@ -32,6 +32,8 @@ interface MenuItem {
   ingredients: string;
   allergens?: string[];
   dietaryLabels: string[];
+  morningSpecial?: boolean;
+  eveningSpecial?: boolean;
   priority: number;
   imgSrc: string;
 }
@@ -220,12 +222,26 @@ export function MenuGrid({ items }: MenuGridProps) {
                           ₹{item.price}
                         </p>
                       </div>
-                      {item.priority < 2 && (
-                        <span className="flex items-center gap-1 text-[10px] md:text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2.5 py-1 rounded-full border border-saffron-100 shadow-sm mt-1">
-                          <Flame className="w-3.5 h-3.5 fill-current" />
-                          Popular
-                        </span>
-                      )}
+                      <div className="flex flex-col gap-1.5 items-end">
+                        {item.priority < 2 && (
+                          <span className="flex items-center gap-1 text-[10px] md:text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2.5 py-1 rounded-full border border-saffron-100 shadow-sm mt-1 whitespace-nowrap">
+                            <Flame className="w-3.5 h-3.5 fill-current" />
+                            Popular
+                          </span>
+                        )}
+                        {item.morningSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] md:text-[10px] font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-100 shadow-sm mt-1 whitespace-nowrap">
+                            <Sun className="w-3.5 h-3.5" />
+                            Morning Spl
+                          </span>
+                        )}
+                        {item.eveningSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] md:text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100 shadow-sm mt-1 whitespace-nowrap">
+                            <Moon className="w-3.5 h-3.5" />
+                            Evening Spl
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <p className="text-sm md:text-sm text-neutral-600 mb-5 line-clamp-2 md:line-clamp-3">

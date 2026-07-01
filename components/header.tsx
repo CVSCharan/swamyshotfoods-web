@@ -25,7 +25,10 @@ import { useMenuItems } from "@/lib/hooks/useMenuItems";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
+import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
+
 export function Header() {
+  useStoreConfigSSE();
   const [mounted, setMounted] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
