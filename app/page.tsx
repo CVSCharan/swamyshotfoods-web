@@ -24,7 +24,6 @@ import { ConnectionStatus } from "@/components/connection-status";
 import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
-  useStoreConfigSSE();
   const { config } = useStoreConfigStore();
   const [showSplash, setShowSplash] = useState(true);
 

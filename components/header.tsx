@@ -25,7 +25,10 @@ import { useMenuItems } from "@/lib/hooks/useMenuItems";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
+import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
+
 export function Header() {
+  useStoreConfigSSE();
   const [mounted, setMounted] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -71,7 +74,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-header-safe pt-safe sm:h-20 sm:pt-0 transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-xl shadow-md"
             : "bg-white/80 backdrop-blur-md shadow-sm"
@@ -159,7 +162,7 @@ export function Header() {
       </header>
 
       {/* Spacer for Top Header */}
-      <div className="h-16 sm:h-20" />
+      <div className="h-header-safe sm:h-20" />
 
       {/* --- MOBILE BOTTOM NAVIGATION BAR --- */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-nav-safe pb-safe bg-white/90 backdrop-blur-xl border-t border-neutral-200 shadow-[0_-4px_24px_rgba(0,0,0,0.05)] z-50 flex items-center justify-around px-2">

@@ -20,6 +20,8 @@ export interface MenuItem {
   ingredients: string;
   allergens?: string[];
   dietaryLabels: string[];
+  morningSpecial?: boolean;
+  eveningSpecial?: boolean;
   priority: number;
   imgSrc: string;
 }
