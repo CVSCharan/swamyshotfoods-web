@@ -26,7 +26,7 @@ export function Footer() {
       {/* Curved Top Border */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-saffron-400 to-green-500" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-28 md:pb-8 relative z-10">
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
           {/* Brand Section */}

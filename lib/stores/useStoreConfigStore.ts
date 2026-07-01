@@ -11,6 +11,7 @@ interface StoreConfig {
   currentStatusMsg: string;
   menuFooterMessage?: string;
   ownerAvatarUrl?: string;
+  cookingImageUrl?: string;
 }
 
 interface StoreConfigStore {
