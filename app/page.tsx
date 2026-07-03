@@ -135,21 +135,21 @@ export default function LandingPage() {
           transition={{ duration: 0.6 }}
         >
           <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center text-center">
-            {/* Owner Profile Picture (Optional) */}
+            {/* Owner Profile Picture (Optional/Fallback) */}
             <AnimatePresence>
-              {config?.ownerAvatarUrl && (
+              {config && (
                 <motion.div
-                  className="mb-6 relative"
+                  className="mb-1 relative"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
                 >
-                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white shadow-xl shadow-saffron-500/20 overflow-hidden relative bg-white flex items-center justify-center mx-auto">
+                  <div className="w-32 h-32 md:w-44 md:h-44 rounded-full border-4 border-white shadow-xl shadow-saffron-500/20 overflow-hidden relative bg-white flex items-center justify-center mx-auto">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={config.ownerAvatarUrl}
+                      src={config.ownerAvatarUrl || "/logo.png"}
                       alt="Owner Profile"
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full ${config.ownerAvatarUrl ? 'object-cover' : 'object-contain p-2 md:p-3'}`}
                     />
                   </div>
                   {/* Decorative online badge */}
@@ -160,7 +160,7 @@ export default function LandingPage() {
 
             {/* Title with Saffron Gradient */}
             <motion.h1
-              className="font-heading text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-8"
+              className="font-heading text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-3 tracking-tight mt-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -488,7 +488,7 @@ export default function LandingPage() {
 
         {/* Notice Board */}
         {config?.isNoticeActive && config?.noticeMessage && (
-          <div className="-mt-12 py-8 px-4 bg-gradient-to-b from-neutral-50 to-white">
+          <div className="py-16 px-4 bg-gradient-to-b from-neutral-50 to-white relative z-10">
             <div className="max-w-4xl mx-auto">
               {/* Section Header */}
               <motion.div
@@ -581,7 +581,7 @@ export default function LandingPage() {
         )}
 
         {/* Working Hours */}
-        <div className="-mt-8 py-8 px-4 overflow-x-hidden">
+        <div className="py-16 px-4 overflow-x-hidden relative z-10 bg-neutral-50">
           <div className="max-w-4xl mx-auto">
             {/* Glassmorphic Card */}
             <motion.div
