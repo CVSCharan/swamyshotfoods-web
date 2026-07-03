@@ -14,7 +14,6 @@ import {
   Info,
 } from "lucide-react";
 import { useStoreConfigStore } from "@/lib/stores/useStoreConfigStore";
-import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
 import { ReviewsSection } from "@/components/landing/reviews-section";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { ConnectionStatus } from "@/components/connection-status";
@@ -22,8 +21,6 @@ import { Button } from "@/components/ui/button";
 import { CookingAnimation } from "@/components/animations";
 
 export default function LandingPage() {
-  // Connect to SSE
-  useStoreConfigSSE();
   const { config } = useStoreConfigStore();
 
   // Splash screen state
@@ -285,7 +282,7 @@ export default function LandingPage() {
                       }}
                     >
                       <img
-                        src="/cooking.gif"
+                        src={config.cookingImageUrl || "/cooking.gif"}
                         alt="Cooking"
                         className="w-16 h-16 object-contain"
                       />

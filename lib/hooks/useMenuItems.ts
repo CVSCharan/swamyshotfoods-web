@@ -22,6 +22,8 @@ export interface MenuItem {
   dietaryLabels: string[];
   priority: number;
   imgSrc: string;
+  morningSpecial?: boolean;
+  eveningSpecial?: boolean;
 }
 
 const MOCK_MENU_ITEMS: MenuItem[] = [
@@ -102,11 +104,9 @@ export function useMenuItems() {
   useEffect(() => {
     async function fetchMenuItems() {
       try {
-        // Use force-cache for better performance since menu rarely changes
+        // Use no-store to ensure we always get the latest menu items from the admin panel
         const res = await fetch(`${API_URL}/menu`, {
-          cache: "force-cache",
-          // @ts-ignore - Next.js specific option
-          next: { revalidate: 3600 }, // Revalidate every hour
+          cache: "no-store",
         });
 
         if (!res.ok) {

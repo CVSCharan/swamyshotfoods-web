@@ -34,6 +34,8 @@ interface MenuItem {
   dietaryLabels: string[];
   priority: number;
   imgSrc: string;
+  morningSpecial?: boolean;
+  eveningSpecial?: boolean;
 }
 
 interface MenuGridProps {
@@ -220,12 +222,26 @@ export function MenuGrid({ items }: MenuGridProps) {
                           ₹{item.price}
                         </p>
                       </div>
-                      {item.priority < 2 && (
-                        <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100">
-                          <Flame className="w-3 h-3 fill-current" />
-                          Popular
-                        </span>
-                      )}
+                      <div className="flex flex-col items-end gap-1.5">
+                        {item.priority < 2 && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100">
+                            <Flame className="w-3 h-3 fill-current" />
+                            Popular
+                          </span>
+                        )}
+                        {item.morningSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
+                            <Sun className="w-3 h-3 fill-current" />
+                            Morning Special
+                          </span>
+                        )}
+                        {item.eveningSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
+                            <Moon className="w-3 h-3 fill-current" />
+                            Evening Special
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <p className="text-sm text-neutral-600 mb-4 line-clamp-2">
@@ -244,6 +260,24 @@ export function MenuGrid({ items }: MenuGridProps) {
                               className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md"
                             >
                               {allergen}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {item.dietaryLabels && item.dietaryLabels.length > 0 && (
+                      <div className="mb-3 p-2 bg-green-50/50 border border-green-100 rounded-lg">
+                        <p className="text-[10px] font-semibold text-green-800 uppercase tracking-wide mb-1">
+                          Dietary Preferences
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {item.dietaryLabels.map((label, i) => (
+                            <span
+                              key={i}
+                              className="text-[10px] font-medium text-green-700 bg-green-100/80 px-2 py-0.5 rounded-md"
+                            >
+                              {label}
                             </span>
                           ))}
                         </div>

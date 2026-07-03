@@ -49,6 +49,8 @@ interface MenuItem {
   dietaryLabels: string[];
   priority: number;
   imgSrc: string;
+  morningSpecial?: boolean;
+  eveningSpecial?: boolean;
 }
 
 async function getMenuItems(): Promise<{ items: MenuItem[]; error?: string }> {
