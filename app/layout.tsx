@@ -3,6 +3,21 @@ import { Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { StoreConfigProvider } from "@/components/providers/store-config-provider";
+import { API_URL } from "@/lib/config";
+
+async function getStoreConfig() {
+  try {
+    const res = await fetch(`${API_URL}/store-config`, { cache: "no-store" });
+    if (!res.ok) {
+      return null;
+    }
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching store config in layout:", error);
+    return null;
+  }
+}
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair",
@@ -98,17 +113,21 @@ export const viewport = {
   themeColor: "#16a34a",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const storeConfig = await getStoreConfig();
+
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${lora.variable}`}>
       <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <StoreConfigProvider initialConfig={storeConfig}>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </StoreConfigProvider>
       </body>
     </html>
   );

@@ -22,7 +22,6 @@ import {
   EmptyMedia,
 } from "@/components/ui/empty";
 import { useMenuItems } from "@/lib/hooks/useMenuItems";
-import { useStoreConfigSSE } from "@/lib/hooks/useStoreConfigSSE";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
@@ -31,7 +30,6 @@ export function Header() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { menuItems } = useMenuItems();
-  useStoreConfigSSE(); // Maintain global real-time connection
   const router = useRouter();
   const pathname = usePathname();
 

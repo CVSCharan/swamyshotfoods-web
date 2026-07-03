@@ -18,9 +18,14 @@ export const useStoreConfigSSE = () => {
 
   const { setConfig, setConnected, setError } = useStoreConfigStore();
 
-  // Fetch initial data via REST for immediate display
+  // Fetch initial data via REST for immediate display, ONLY if not already hydrated from SSR
   const fetchInitialData = useCallback(async () => {
     if (hasInitialDataRef.current || !isMountedRef.current) return;
+    if (useStoreConfigStore.getState().config) {
+      console.log("✅ Initial store config already hydrated from SSR");
+      hasInitialDataRef.current = true;
+      return;
+    }
 
     try {
       console.log("🔄 Fetching initial store config via REST...");
