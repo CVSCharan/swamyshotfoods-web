@@ -27,7 +27,6 @@ export const metadata: Metadata = generatePageMetadata({
 });
 
 import { MenuGrid } from "@/components/menu/menu-grid";
-import { MenuFooterMessage } from "@/components/menu/menu-footer-message";
 import { Sparkles, UtensilsCrossed } from "lucide-react";
 
 interface MenuItem {
@@ -75,8 +74,25 @@ async function getMenuItems(): Promise<{ items: MenuItem[]; error?: string }> {
   }
 }
 
+async function getStoreConfig(): Promise<{ menuFooterMessage?: string }> {
+  try {
+    const res = await fetch(`${API_URL}/store-config`, { cache: "no-store" });
+    if (!res.ok) {
+      return {};
+    }
+    const data = await res.json();
+    return { menuFooterMessage: data.menuFooterMessage };
+  } catch (error) {
+    console.error("Error fetching store config:", error);
+    return {};
+  }
+}
+
 export default async function MenuPage() {
-  const { items: menuItems, error } = await getMenuItems();
+  const [{ items: menuItems, error }, storeConfig] = await Promise.all([
+    getMenuItems(),
+    getStoreConfig(),
+  ]);
 
   // Generate structured data
   const menuSchema = getMenuSchema();
@@ -154,7 +170,13 @@ export default async function MenuPage() {
             <MenuGrid items={menuItems} />
           )}
 
-          <MenuFooterMessage />
+          {storeConfig.menuFooterMessage && (
+            <div className="mt-12 mb-8 bg-white/80 backdrop-blur-md border border-saffron-200/50 rounded-2xl p-6 md:p-8 shadow-xl shadow-saffron-100 max-w-4xl mx-auto text-center">
+              <p className="text-neutral-800 font-medium text-base md:text-lg leading-relaxed whitespace-pre-wrap">
+                {storeConfig.menuFooterMessage}
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>
