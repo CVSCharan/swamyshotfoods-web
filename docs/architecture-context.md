@@ -27,3 +27,6 @@ This repository (`swamyshotfoods-web`) is the Customer-Facing Next.js Applicatio
 ## Context Retrieval for AI Assistants
 - **Styling**: Relies heavily on Tailwind gradients, `backdrop-blur`, and semantic colors (e.g., `saffron-500`).
 - **Data Caching**: Next.js Router Cache can sometimes make Server-Fetched data appear stale during client-side navigation. For highly dynamic text, wrapping it in a Client Component that reads from Zustand (SSE) is the best practice.
+
+### Mobile Optimization & Background Lifecycle
+- **SSE Connection Management**: Both `useStoreConfigSSE` and `useMenuItems` hooks utilize the Page Visibility API (`document.hidden`). Connections and fetches automatically pause or refresh when the browser tab transitions between background and active states. This prevents endless reconnection loops and fixes issues where users see stale data after resuming the app hours later on a mobile device.
