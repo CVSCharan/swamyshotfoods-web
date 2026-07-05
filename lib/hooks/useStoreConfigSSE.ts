@@ -182,5 +182,24 @@ export const useStoreConfigSSE = () => {
     };
   }, [connect, disconnect, fetchInitialData]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        console.log('🙈 Tab hidden, pausing SSE connection');
+        disconnect();
+      } else {
+        console.log('🙉 Tab visible, resuming SSE connection');
+        connect();
+      }
+    };
+    
+    if (typeof document !== 'undefined') {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      };
+    }
+  }, [connect, disconnect]);
+
   return { disconnect };
 };

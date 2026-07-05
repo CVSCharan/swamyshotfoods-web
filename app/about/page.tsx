@@ -657,94 +657,27 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16 md:py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <div className="inline-block bg-green-100 text-green-700 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4">
-              Our Beautiful Family
-            </div>
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 sm:mb-6 px-4">
-              The Heart of Our Business
+              Success of my business
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto px-4">
-              Family-run with love, maintained by our own family members&apos;
+              business maintained by my own family member&apos;s
               surveillance with good responsible staff.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-            {/* Wife */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-pink-200">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  ❤️
-                </div>
-                <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  My Wife
-                </h3>
-                <p className="text-neutral-600">
-                  My partner in life and business
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Daughter 1 */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-purple-200">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  👸
-                </div>
-                <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  Sreelakshmi
-                </h3>
-                <p className="text-neutral-600">Our eldest daughter</p>
-              </CardContent>
-            </Card>
-
-            {/* Daughter 2 */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-purple-200">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  👸
-                </div>
-                <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  Sravani
-                </h3>
-                <p className="text-neutral-600">Our youngest daughter</p>
-              </CardContent>
-            </Card>
-
-            {/* Mother */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-orange-200">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  👩‍🦳
-                </div>
-                <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  My Mother
-                </h3>
-                <p className="text-neutral-600">The pillar of our family</p>
-              </CardContent>
-            </Card>
-
-            {/* Pet */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-amber-200">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  🐶
-                </div>
-                <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  Ramu
-                </h3>
-                <p className="text-neutral-600">Our beloved pet</p>
-              </CardContent>
-            </Card>
-
-            {/* Family Unit */}
-            <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-200 md:col-span-2 lg:col-span-1">
+          <div className="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 max-w-2xl mx-auto">
+            <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-200">
               <CardContent className="p-6 text-center flex flex-col justify-center h-full">
-                <Heart className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                <div className="flex justify-center gap-2 mb-4 text-3xl">
+                  ❤️ 👨‍👩‍👧‍👧 👩‍🦳 🐶
+                </div>
                 <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  Together
+                  Our Family
                 </h3>
-                <p className="text-neutral-600">This is our beautiful family</p>
+                <p className="text-neutral-600 text-lg">
+                  Me & my wife, 2 children's, my mother & my lovely pet Ramu
+                </p>
               </CardContent>
             </Card>
           </div>
