@@ -669,11 +669,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 max-w-2xl mx-auto">
             <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-200">
               <CardContent className="p-6 text-center flex flex-col justify-center h-full">
-                <div className="flex justify-center gap-2 mb-4 text-3xl">
-                  ❤️ 👨‍👩‍👧‍👧 👩‍🦳 🐶
-                </div>
                 <h3 className="font-heading text-xl font-bold text-neutral-900 mb-2">
-                  Our Family
+                  My Beautiful Family
                 </h3>
                 <p className="text-neutral-600 text-lg">
                   Me & my wife, 2 children's, my mother & my lovely pet Ramu
