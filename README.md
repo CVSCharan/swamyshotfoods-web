@@ -210,3 +210,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ for authentic South Indian cuisine since 1944**
+
+---
+
+## 📅 Recent Updates (July 2026)
+
+*   **Real-time Store Sync Optimization**: Relocated `useStoreConfigSSE()` to the global Header and added Page Visibility checks to pause SSE streams when the app is backgrounded, dramatically reducing battery drain.
+*   **Menu Resumption Fixes**: Menu components now listen for `visibilitychange` events, ensuring customers returning to a cached tab receive the latest items rather than a stale menu.
+*   **Dynamic Saturday/Sunday Logic**: Enhanced handling of "Closing soon..!" transitions natively, seamlessly pivoting into "☀️ Sunday's Holiday" without client lag.
+*   **About Page Overhaul**: Restyled the legacy components to a streamlined design matching the new "Success of my business" layouts and fixed mapping links.
