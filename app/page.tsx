@@ -287,7 +287,7 @@ export default function LandingPage() {
                         className="w-16 h-16 object-contain"
                       />
                       <span className="font-bold text-saffron-700 text-base tracking-wide">
-                        Cooking
+                        Cooking under process
                       </span>
                     </motion.div>
                   ) : (
