@@ -878,17 +878,20 @@ export default function AboutPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center px-4">
-              <Button asChild size="lg" className="w-full sm:w-auto bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-xl shadow-saffron-500/30 hover:shadow-2xl transition-all">
-                <Link href="/menu">
+              <Link href="/menu" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-xl shadow-saffron-500/30 hover:shadow-2xl transition-all">
                   Explore Our Menu
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
+                </Button>
+              </Link>
 
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-green-50 text-green-700 border-2 border-green-300 hover:border-green-400 font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-                <Link href="/">
-                  Visit Us Today
-                </Link>
+              <Button 
+                onClick={() => window.open("https://www.google.com/maps/dir//Swamy's+Hot+Foods,+Nellore", "_blank")}
+                size="lg" 
+                variant="outline" 
+                className="w-full sm:w-auto bg-white hover:bg-green-50 text-green-700 border-2 border-green-300 hover:border-green-400 font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer"
+              >
+                Visit Us Today
               </Button>
             </div>
           </motion.div>
