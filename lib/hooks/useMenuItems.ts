@@ -103,6 +103,7 @@ export function useMenuItems() {
 
   useEffect(() => {
     async function fetchMenuItems() {
+      setLoading(true);
       try {
         // Use no-store to ensure we always get the latest menu items from the admin panel
         const res = await fetch(`${API_URL}/menu`, {
@@ -127,6 +128,20 @@ export function useMenuItems() {
     }
 
     fetchMenuItems();
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log("🙉 Tab became visible, refreshing menu items...");
+        fetchMenuItems();
+      }
+    };
+
+    if (typeof document !== "undefined") {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      };
+    }
   }, []);
 
   return { menuItems, loading, error };
