@@ -879,7 +879,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center px-4">
               <Link href="/menu" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-xl shadow-saffron-500/30 hover:shadow-2xl transition-all">
+                <Button size="lg" className="w-full bg-white hover:bg-green-50 text-green-700 border-2 border-green-500 hover:border-green-600 font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-xl shadow-green-500/10 hover:shadow-2xl transition-all">
                   Explore Our Menu
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -889,7 +889,7 @@ export default function AboutPage() {
                 onClick={() => window.open("https://www.google.com/maps/dir//Swamy's+Hot+Foods,+Nellore", "_blank")}
                 size="lg" 
                 variant="outline" 
-                className="w-full sm:w-auto bg-white hover:bg-green-50 text-green-700 border-2 border-green-300 hover:border-green-400 font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                className="w-full sm:w-auto bg-white hover:bg-blue-50 text-blue-700 border-2 border-blue-500 hover:border-blue-600 font-bold text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer"
               >
                 Visit Us Today
               </Button>

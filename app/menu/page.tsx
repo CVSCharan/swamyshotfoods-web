@@ -27,6 +27,7 @@ export const metadata: Metadata = generatePageMetadata({
 });
 
 import { MenuGrid } from "@/components/menu/menu-grid";
+import { MenuHeaderMessage } from "@/components/menu/menu-header-message";
 import { MenuFooterMessage } from "@/components/menu/menu-footer-message";
 import { Sparkles, UtensilsCrossed } from "lucide-react";
 
@@ -136,6 +137,8 @@ export default async function MenuPage() {
       {/* Menu Grid Section */}
       <section className="py-12 px-4 md:px-6 -mt-10 relative z-20">
         <div className="max-w-7xl mx-auto">
+          <MenuHeaderMessage />
+
           {error ? (
             <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-red-100">
               <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">

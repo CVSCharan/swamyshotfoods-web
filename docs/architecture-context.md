@@ -30,3 +30,9 @@ This repository (`swamyshotfoods-web`) is the Customer-Facing Next.js Applicatio
 
 ### Mobile Optimization & Background Lifecycle
 - **SSE Connection Management**: Both `useStoreConfigSSE` and `useMenuItems` hooks utilize the Page Visibility API (`document.hidden`). Connections and fetches automatically pause or refresh when the browser tab transitions between background and active states. This prevents endless reconnection loops and fixes issues where users see stale data after resuming the app hours later on a mobile device.
+- **PWA / Service Worker (Serwist)**: Implemented using `@serwist/next`. Caches static assets, handles network fallbacks, and manages auto-updating via `sw.ts`. `app/manifest.ts` dynamically generates the web app manifest referencing the synced brand colors from `globals.css`.
+
+### Known UI/UX Patterns & Fixes
+- **Button asChild with Next Link**: When wrapping Next.js `<Link>` with Shadcn UI's `<Button asChild>`, animation wrappers like `motion.div` must be placed inside the `Link` (or wrap the `Button`), but not between them, to prevent click interception and hydration mismatch.
+- **Badge Overflow**: Features like "Morning Special" or "Evening Special" on menu items use `shrink-0` and `whitespace-nowrap` within flex containers to prevent crushing/wrapping when item names are too long.
+- **Themed Call-to-Action**: "Explore Menu" strictly utilizes the `green` palette, while secondary "Visit Us Today" actions use the `blue` palette for visual hierarchy.

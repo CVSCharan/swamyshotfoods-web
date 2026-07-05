@@ -36,6 +36,7 @@ interface MenuItem {
   imgSrc: string;
   morningSpecial?: boolean;
   eveningSpecial?: boolean;
+  dosaSpecial?: boolean;
 }
 
 interface MenuGridProps {
@@ -222,16 +223,16 @@ export function MenuGrid({ items }: MenuGridProps) {
                           ₹{item.price}
                         </p>
                       </div>
-                      <div className="flex flex-col items-end gap-1.5">
+                      <div className="flex flex-col items-end gap-1.5 shrink-0 ml-2">
                         {item.priority < 2 && (
-                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100">
-                            <Flame className="w-3 h-3 fill-current" />
+                          <span className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100 shrink-0">
+                            <Flame className="w-3 h-3 fill-current shrink-0" />
                             Popular
                           </span>
                         )}
                         {item.morningSpecial && (
-                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
-                            <Sun className="w-3 h-3 fill-current" />
+                          <span className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100 shrink-0">
+                            <Sun className="w-3 h-3 fill-current shrink-0" />
                             Morning Special
                           </span>
                         )}
@@ -239,6 +240,12 @@ export function MenuGrid({ items }: MenuGridProps) {
                           <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
                             <Moon className="w-3 h-3 fill-current" />
                             Evening Special
+                          </span>
+                        )}
+                        {item.dosaSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100">
+                            <Flame className="w-3 h-3 fill-current" />
+                            Dosa Special
                           </span>
                         )}
                       </div>

@@ -438,14 +438,13 @@ export default function LandingPage() {
                 </Button>
               </motion.div>
 
-              <motion.div
-                className="flex-1 min-w-[120px]"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Button asChild className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold shadow-xl shadow-green-600/30 rounded-2xl border-2 border-green-500/20 backdrop-blur-sm">
-                  <Link href="/menu">
+              <Link href="/menu" className="flex-1 min-w-[120px]">
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Button className="w-full h-12 text-base gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold shadow-xl shadow-green-600/30 rounded-2xl border-2 border-green-500/20 backdrop-blur-sm">
                     <motion.div
                       animate={{
                         y: [0, -4, 0],
@@ -461,9 +460,9 @@ export default function LandingPage() {
                       <UtensilsCrossed className="w-4 h-4" />
                     </motion.div>
                     Menu
-                  </Link>
-                </Button>
-              </motion.div>
+                  </Button>
+                </motion.div>
+              </Link>
             </motion.div>
           </div>
 
