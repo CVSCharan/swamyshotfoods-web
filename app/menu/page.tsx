@@ -52,6 +52,7 @@ interface MenuItem {
   imgSrc: string;
   morningSpecial?: boolean;
   eveningSpecial?: boolean;
+  dosaSpecial?: boolean;
 }
 
 async function getMenuItems(): Promise<{ items: MenuItem[]; error?: string }> {

@@ -24,6 +24,7 @@ export interface MenuItem {
   imgSrc: string;
   morningSpecial?: boolean;
   eveningSpecial?: boolean;
+  dosaSpecial?: boolean;
 }
 
 const MOCK_MENU_ITEMS: MenuItem[] = [
