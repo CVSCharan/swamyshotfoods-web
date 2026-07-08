@@ -254,7 +254,7 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
                     )}
 
                     {/* Dietary & Allergens */}
-                    {(item.dietaryLabels?.length > 0 || item.allergens?.length > 0) && (
+                    {((item.dietaryLabels && item.dietaryLabels.length > 0) || (item.allergens && item.allergens.length > 0)) && (
                       <div className="flex flex-wrap items-center gap-2 mb-6">
                         {item.dietaryLabels?.map((label, i) => (
                           <span key={`diet-${i}`} className="text-[10px] font-semibold text-green-700 uppercase tracking-wider bg-green-50 border border-green-100/50 px-2.5 py-1 rounded-md">
