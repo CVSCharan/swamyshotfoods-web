@@ -104,11 +104,11 @@ export default function LandingPage() {
                 }}
               />
               <Image
-                src="/logo.png"
+                src={config?.ownerAvatarUrl || "/logo.png"}
                 alt="Swamy's Hot Foods"
                 width={256}
                 height={256}
-                className="relative z-10 drop-shadow-2xl w-full h-full object-contain p-6 md:p-8"
+                className={`relative z-10 drop-shadow-2xl w-full h-full ${config?.ownerAvatarUrl ? 'object-cover rounded-full' : 'object-contain p-6 md:p-8'}`}
                 priority
                 unoptimized
               />

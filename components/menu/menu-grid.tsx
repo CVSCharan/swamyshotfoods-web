@@ -14,6 +14,7 @@ import {
   Coffee,
 } from "lucide-react";
 import { Button } from "../ui/button";
+import { useMenuItems } from "@/lib/hooks/useMenuItems";
 
 interface MenuItem {
   _id: string;
@@ -72,17 +73,21 @@ function formatTimings(item: MenuItem): string {
   return parts.join(" & ") || "Anytime";
 }
 
-export function MenuGrid({ items }: MenuGridProps) {
+export function MenuGrid({ items: initialItems }: MenuGridProps) {
   const [timeSlotFilter, setTimeSlotFilter] = useState("All");
+  const { menuItems } = useMenuItems(initialItems);
+
+  // Use the live menu items from the SSE stream, fall back to initial SSR data if empty
+  const activeItems = menuItems.length > 0 ? menuItems : initialItems;
 
   // Console log all menu items
-  console.log("📋 All Menu Items:", items);
-  console.log("📊 Total Items Count:", items.length);
+  console.log("📋 Active Menu Items:", activeItems);
+  console.log("📊 Total Items Count:", activeItems.length);
 
   // Extract unique time slots
   const timeSlots = [
     "All",
-    ...Array.from(new Set(items.map((i) => getTimeSlot(i)))).sort(),
+    ...Array.from(new Set(activeItems.map((i) => getTimeSlot(i)))).sort(),
   ];
 
   // Better display names for filters
@@ -109,7 +114,7 @@ export function MenuGrid({ items }: MenuGridProps) {
     return iconMap[slot] || Clock;
   };
 
-  const filteredItems = items.filter((item) => {
+  const filteredItems = activeItems.filter((item) => {
     return timeSlotFilter === "All" || getTimeSlot(item) === timeSlotFilter;
   });
 

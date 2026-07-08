@@ -96,13 +96,18 @@ const MOCK_MENU_ITEMS: MenuItem[] = [
   },
 ];
 
-export function useMenuItems() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+export function useMenuItems(initialData?: MenuItem[]) {
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialData || []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let eventSource: EventSource | null = null;
+    let reconnectTimeout: NodeJS.Timeout | null = null;
+    let isComponentMounted = true;
+
     async function fetchMenuItems() {
+      if (!isComponentMounted) return;
       setLoading(true);
       try {
         // Use no-store to ensure we always get the latest menu items from the admin panel
@@ -115,33 +120,106 @@ export function useMenuItems() {
         }
 
         const items = await res.json();
-        setMenuItems(items);
-        setError(null);
-        console.log("✅ Menu items loaded successfully");
+        if (isComponentMounted) {
+          setMenuItems(items);
+          setError(null);
+          console.log("✅ Menu items loaded successfully");
+        }
       } catch (err) {
-        console.warn("⚠️ API fetch failed, using mock data:", err);
-        setMenuItems(MOCK_MENU_ITEMS);
-        setError(null); // Clear error since we have fallback
+        if (isComponentMounted) {
+          console.warn("⚠️ API fetch failed, using mock data:", err);
+          setMenuItems(MOCK_MENU_ITEMS);
+          setError(null); // Clear error since we have fallback
+        }
       } finally {
-        setLoading(false);
+        if (isComponentMounted) setLoading(false);
       }
     }
 
+    function connectSSE() {
+      if (eventSource?.readyState === EventSource.OPEN) return;
+
+      try {
+        console.log("🔌 Connecting to Menu SSE...");
+        eventSource = new EventSource(`${API_URL}/menu/sse`);
+
+        eventSource.onopen = () => {
+          console.log("✅ Menu SSE Connected");
+        };
+
+        eventSource.onmessage = (event) => {
+          if (!isComponentMounted) return;
+          try {
+            const data = JSON.parse(event.data);
+            console.log("📦 Menu Status Update received via SSE");
+            setMenuItems(data);
+          } catch (err) {
+            console.error("❌ Failed to parse Menu SSE data:", err);
+          }
+        };
+
+        eventSource.onerror = () => {
+          console.error("❌ Menu SSE Error occurred");
+          if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+          }
+
+          // Attempt to reconnect after delay
+          reconnectTimeout = setTimeout(() => {
+            if (isComponentMounted) {
+              connectSSE();
+            }
+          }, 3000);
+        };
+      } catch (err) {
+        console.error("❌ Failed to create EventSource for Menu:", err);
+      }
+    }
+
+    function disconnectSSE() {
+      console.log("🔌 Disconnecting Menu SSE...");
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+        reconnectTimeout = null;
+      }
+      if (eventSource) {
+        eventSource.close();
+        eventSource = null;
+      }
+    }
+
+    // Initial fetch
     fetchMenuItems();
+
+    // Start SSE Connection after short delay
+    const connectTimer = setTimeout(() => {
+      if (isComponentMounted) connectSSE();
+    }, 500);
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        console.log("🙉 Tab became visible, refreshing menu items...");
-        fetchMenuItems();
+        console.log("🙉 Tab became visible, resuming Menu SSE connection...");
+        connectSSE();
+        fetchMenuItems(); // fallback fetch to be safe
+      } else {
+        console.log("🙈 Tab hidden, pausing Menu SSE connection...");
+        disconnectSSE();
       }
     };
 
     if (typeof document !== "undefined") {
       document.addEventListener("visibilitychange", handleVisibilityChange);
-      return () => {
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      };
     }
+
+    return () => {
+      isComponentMounted = false;
+      clearTimeout(connectTimer);
+      disconnectSSE();
+      if (typeof document !== "undefined") {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+    };
   }, []);
 
   return { menuItems, loading, error };
