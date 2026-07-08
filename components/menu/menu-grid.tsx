@@ -194,119 +194,93 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
               style={{ perspective: "1000px" }}
             >
               <motion.div className="relative w-full h-full">
-                {/* FRONT SIDE - Menu Item Card */}
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-neutral-100 h-full flex flex-col">
-                  {/* Image */}
-                  <div className="relative h-56 overflow-hidden">
-                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
-
+                <div className="bg-white rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-neutral-100 h-full flex flex-col group/card">
+                  {/* Image Section */}
+                  <div className="relative h-[240px] overflow-hidden bg-neutral-50">
                     <motion.div
                       className="relative h-full w-full"
-                      style={{
-                        clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
-                      }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
                     >
                       <MenuItemImage src={item.imgSrc} alt={item.name} />
                     </motion.div>
-
-                    <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
-                      <Clock className="w-3 h-3" />
-                      {formatTimings(item)}
+                    
+                    {/* Floating Badges Top Right */}
+                    <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
+                      {item.priority < 2 && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-orange-700 bg-orange-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-orange-200/50">
+                          <Flame className="w-3 h-3" />
+                          Popular
+                        </span>
+                      )}
+                      {item.morningSpecial && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-sky-700 bg-sky-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-sky-200/50">
+                          <Sun className="w-3 h-3" />
+                          Morning Special
+                        </span>
+                      )}
+                      {item.eveningSpecial && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-indigo-200/50">
+                          <Moon className="w-3 h-3" />
+                          Evening Special
+                        </span>
+                      )}
+                      {item.dosaSpecial && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-rose-700 bg-rose-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-rose-200/50">
+                          <Flame className="w-3 h-3" />
+                          Dosa Special
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-heading text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
-                          {item.name}
-                        </h3>
-                        <p className="text-3xl font-extrabold text-secondary mt-1 tabular-nums tracking-tight">
-                          ₹{item.price}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-end gap-1.5 shrink-0 ml-2">
-                        {item.priority < 2 && (
-                          <span className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-100 shrink-0">
-                            <Flame className="w-3 h-3 fill-current shrink-0" />
-                            Popular
-                          </span>
-                        )}
-                        {item.morningSpecial && (
-                          <span className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100 shrink-0">
-                            <Sun className="w-3 h-3 fill-current shrink-0" />
-                            Morning Special
-                          </span>
-                        )}
-                        {item.eveningSpecial && (
-                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
-                            <Moon className="w-3 h-3 fill-current" />
-                            Evening Special
-                          </span>
-                        )}
-                        {item.dosaSpecial && (
-                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100">
-                            <Flame className="w-3 h-3 fill-current" />
-                            Dosa Special
-                          </span>
-                        )}
-                      </div>
+                  {/* Content Section */}
+                  <div className="p-6 md:p-8 flex-1 flex flex-col">
+                    {/* Header: Title and Price */}
+                    <div className="flex justify-between items-start gap-4 mb-3">
+                      <h3 className="font-heading text-2xl font-bold text-neutral-900 leading-tight group-hover/card:text-green-700 transition-colors duration-300">
+                        {item.name}
+                      </h3>
+                      <p className="text-2xl font-bold text-green-700 tabular-nums shrink-0 tracking-tight">
+                        ₹{item.price}
+                      </p>
                     </div>
 
-                    <p className="text-sm text-neutral-600 mb-4 line-clamp-2">
-                      {item.desc}
-                    </p>
-
-                    {item.allergens && item.allergens.length > 0 && (
-                      <div className="mb-3 p-2 bg-amber-50 border border-amber-200 rounded-lg">
-                        <p className="text-[10px] font-semibold text-amber-800 uppercase tracking-wide mb-1">
-                          Allergens
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {item.allergens.map((allergen, i) => (
-                            <span
-                              key={i}
-                              className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md"
-                            >
-                              {allergen}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {item.dietaryLabels && item.dietaryLabels.length > 0 && (
-                      <div className="mb-3 p-2 bg-green-50/50 border border-green-100 rounded-lg">
-                        <p className="text-[10px] font-semibold text-green-800 uppercase tracking-wide mb-1">
-                          Dietary Preferences
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {item.dietaryLabels.map((label, i) => (
-                            <span
-                              key={i}
-                              className="text-[10px] font-medium text-green-700 bg-green-100/80 px-2 py-0.5 rounded-md"
-                            >
-                              {label}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Ingredients Preview */}
-                    <div className="pt-3 border-t border-neutral-100">
-                      <p className="text-xs font-semibold text-neutral-600 mb-2 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                        Key Ingredients
+                    {/* Description */}
+                    {item.desc && (
+                      <p className="text-sm text-neutral-500 leading-relaxed mb-6 whitespace-pre-wrap">
+                        {item.desc.trim()}
                       </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        <span className="text-xs font-medium text-green-700 bg-gradient-to-r from-green-50 to-green-100 border border-green-200 px-3 py-1.5 rounded-3xl hover:shadow-md transition-shadow">
-                          {item.ingredients}
-                        </span>
+                    )}
+
+                    {/* Dietary & Allergens */}
+                    {(item.dietaryLabels?.length > 0 || item.allergens?.length > 0) && (
+                      <div className="flex flex-wrap items-center gap-2 mb-6">
+                        {item.dietaryLabels?.map((label, i) => (
+                          <span key={`diet-${i}`} className="text-[10px] font-semibold text-green-700 uppercase tracking-wider bg-green-50 border border-green-100/50 px-2.5 py-1 rounded-md">
+                            {label}
+                          </span>
+                        ))}
+                        {item.allergens?.map((allergen, i) => (
+                          <span key={`allergen-${i}`} className="text-[10px] font-semibold text-amber-700 uppercase tracking-wider bg-amber-50 border border-amber-100/50 px-2.5 py-1 rounded-md">
+                            {allergen}
+                          </span>
+                        ))}
                       </div>
+                    )}
+
+                    {/* Footer: Ingredients */}
+                    <div className="mt-auto">
+                      {item.ingredients && (
+                        <div className="pt-4 border-t border-neutral-100">
+                          <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">
+                            Key Ingredients
+                          </p>
+                          <p className="text-xs text-neutral-600 font-medium leading-relaxed">
+                            {item.ingredients}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
