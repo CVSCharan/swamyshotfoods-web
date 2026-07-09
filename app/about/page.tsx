@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { useStoreConfigStore } from "@/lib/stores/useStoreConfigStore";
 
 // YouTube Shorts Carousel Component
 function YouTubeShortsCarousel() {
@@ -132,6 +133,9 @@ function YouTubeShortsCarousel() {
 }
 
 export default function AboutPage() {
+  const { config } = useStoreConfigStore();
+  const description = config?.description || "A story of dedication, tradition, and love for authentic South Indian vegetarian cuisine, passed down through generations.";
+
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section - Since 1944 */}
@@ -251,7 +255,7 @@ export default function AboutPage() {
             />
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto leading-relaxed px-4 mb-12 sm:mb-16 md:mb-20"
+              className="text-base sm:text-lg md:text-xl text-neutral-200 max-w-3xl mx-auto leading-relaxed px-4 mb-12 sm:mb-16 md:mb-20 font-medium"
               initial={{ opacity: 0, y: 20 }}
               animate={{
                 opacity: 1,
@@ -264,8 +268,7 @@ export default function AboutPage() {
                 },
               }}
             >
-              A story of dedication, tradition, and love for authentic South
-              Indian vegetarian cuisine, passed down through generations.
+              {description}
             </motion.p>
           </div>
         </div>
