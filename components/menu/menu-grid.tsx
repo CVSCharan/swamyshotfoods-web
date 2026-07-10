@@ -12,6 +12,7 @@ import {
   Sun,
   Moon,
   Coffee,
+  ChefHat,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useMenuItems } from "@/lib/hooks/useMenuItems";
@@ -38,6 +39,8 @@ interface MenuItem {
   morningSpecial?: boolean;
   eveningSpecial?: boolean;
   dosaSpecial?: boolean;
+  popular?: boolean;
+  chefSpecial?: boolean;
 }
 
 interface MenuGridProps {
@@ -207,10 +210,16 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
                     
                     {/* Floating Badges Top Right */}
                     <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
-                      {item.priority < 2 && (
+                      {item.popular && (
                         <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-orange-700 bg-orange-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-orange-200/50">
                           <Flame className="w-3 h-3" />
                           Popular
+                        </span>
+                      )}
+                      {item.chefSpecial && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-violet-700 bg-violet-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-violet-200/50">
+                          <ChefHat className="w-3.5 h-3.5" />
+                          Chef Special
                         </span>
                       )}
                       {item.morningSpecial && (

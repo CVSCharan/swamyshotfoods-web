@@ -53,6 +53,8 @@ interface MenuItem {
   morningSpecial?: boolean;
   eveningSpecial?: boolean;
   dosaSpecial?: boolean;
+  popular?: boolean;
+  chefSpecial?: boolean;
 }
 
 async function getMenuItems(): Promise<{ items: MenuItem[]; error?: string }> {
