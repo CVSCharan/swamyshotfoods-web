@@ -13,6 +13,7 @@ import {
   Moon,
   Coffee,
   ChefHat,
+  Leaf,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useMenuItems } from "@/lib/hooks/useMenuItems";
@@ -223,119 +224,140 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
               style={{ perspective: "1000px" }}
             >
               <motion.div className="relative w-full h-full">
-                <div className="bg-white rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-neutral-100 h-full flex flex-col group/card">
-                  {/* Image Section */}
-                  <div className="relative h-[240px] overflow-hidden bg-neutral-50">
+                {/* FRONT SIDE - Menu Item Card */}
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-neutral-100 h-full flex flex-col">
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
+
                     <motion.div
                       className="relative h-full w-full"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
+                      style={{
+                        clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
+                      }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                       <MenuItemImage src={item.imgSrc} alt={item.name} />
                     </motion.div>
-                    
-                    {/* Floating Badges Top Right */}
-                    <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
-                      {item.popular && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-orange-700 bg-orange-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-orange-200/50">
-                          <Flame className="w-3 h-3" />
-                          Popular
-                        </span>
-                      )}
-                      {item.chefSpecial && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-violet-700 bg-violet-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-violet-200/50">
-                          <ChefHat className="w-3.5 h-3.5" />
-                          Chef Special
-                        </span>
-                      )}
-                      {item.morningSpecial && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-sky-700 bg-sky-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-sky-200/50">
-                          <Sun className="w-3 h-3" />
-                          Morning Special
-                        </span>
-                      )}
-                      {item.eveningSpecial && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-indigo-200/50">
-                          <Moon className="w-3 h-3" />
-                          Evening Special
-                        </span>
-                      )}
-                      {item.dosaSpecial && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-rose-700 bg-rose-50/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-rose-200/50">
-                          <Flame className="w-3 h-3" />
-                          Dosa Special
-                        </span>
-                      )}
+
+                    <div className="absolute bottom-8 left-4 z-20 flex items-center gap-1.5 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+                      <Clock className="w-3 h-3" />
+                      {formatTimings(item)}
                     </div>
                   </div>
 
-                  {/* Content Section */}
-                  <div className="p-6 md:p-8 flex-1 flex flex-col">
-                    {/* Header: Title and Price */}
-                    <div className="flex justify-between items-start gap-4 mb-3">
-                      <h3 className="font-heading text-2xl font-bold text-neutral-900 leading-tight group-hover/card:text-green-700 transition-colors duration-300">
-                        {item.name}
-                      </h3>
-                      <p className="text-2xl font-bold text-green-700 tabular-nums shrink-0 tracking-tight">
-                        ₹{item.price}
-                      </p>
+                  {/* Content */}
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-heading text-xl font-bold text-neutral-800 group-hover:text-green-700 transition-colors">
+                          {item.name}
+                        </h3>
+                        <p className="text-3xl font-extrabold text-secondary mt-1 tabular-nums tracking-tight">
+                          ₹{item.price}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1.5 shrink-0 ml-2">
+                        {item.popular && (
+                          <motion.span 
+                            animate={{ scale: [1, 1.05, 1] }}
+                            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                            className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-saffron-200 shadow-[0_2px_10px_-3px_rgba(245,158,11,0.2)] shrink-0"
+                          >
+                            <Flame className="w-3 h-3 fill-current shrink-0" />
+                            Popular
+                          </motion.span>
+                        )}
+                        {item.chefSpecial && (
+                          <motion.span 
+                            animate={{ scale: [1, 1.05, 1] }}
+                            transition={{ repeat: Infinity, duration: 2.5, delay: 0.5, ease: "easeInOut" }}
+                            className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-600 bg-violet-50/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-violet-200 shadow-[0_2px_10px_-3px_rgba(139,92,246,0.2)] shrink-0"
+                          >
+                            <ChefHat className="w-3 h-3 fill-current shrink-0" />
+                            Chef Special
+                          </motion.span>
+                        )}
+                        {item.morningSpecial && (
+                          <span className="whitespace-nowrap flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-sky-200 shrink-0">
+                            <Sun className="w-3 h-3 fill-current shrink-0" />
+                            Morning Special
+                          </span>
+                        )}
+                        {item.eveningSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-indigo-200">
+                            <Moon className="w-3 h-3 fill-current" />
+                            Evening Special
+                          </span>
+                        )}
+                        {item.dosaSpecial && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-rose-200">
+                            <Flame className="w-3 h-3 fill-current" />
+                            Dosa Special
+                          </span>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Description */}
-                    {item.desc && (
-                      <p className="text-sm text-neutral-500 leading-relaxed mb-6 whitespace-pre-wrap">
-                        {item.desc.trim()}
-                      </p>
-                    )}
+                    <p className="text-sm text-neutral-600 mb-4 line-clamp-2">
+                      {item.desc}
+                    </p>
 
-                    {/* Timings */}
-                    {((item.morningTimings && item.morningTimings.startTime?.trim() && item.morningTimings.endTime?.trim()) ||
-                      (item.eveningTimings && item.eveningTimings.startTime?.trim() && item.eveningTimings.endTime?.trim())) && (
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {item.morningTimings && item.morningTimings.startTime?.trim() && item.morningTimings.endTime?.trim() && (
-                          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-700 bg-amber-50/60 border border-amber-100/50 px-2.5 py-1 rounded-md">
-                            <Sun className="w-3.5 h-3.5 text-amber-500" />
-                            Morning: {formatTo12Hour(item.morningTimings.startTime)} - {formatTo12Hour(item.morningTimings.endTime)}
-                          </span>
-                        )}
-                        {item.eveningTimings && item.eveningTimings.startTime?.trim() && item.eveningTimings.endTime?.trim() && (
-                          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-indigo-700 bg-indigo-50/60 border border-indigo-100/50 px-2.5 py-1 rounded-md">
-                            <Moon className="w-3.5 h-3.5 text-indigo-500" />
-                            Evening: {formatTo12Hour(item.eveningTimings.startTime)} - {formatTo12Hour(item.eveningTimings.endTime)}
-                          </span>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Dietary & Allergens */}
-                    {((item.dietaryLabels && item.dietaryLabels.length > 0) || (item.allergens && item.allergens.length > 0)) && (
-                      <div className="flex flex-wrap items-center gap-2 mb-6">
-                        {item.dietaryLabels?.map((label, i) => (
-                          <span key={`diet-${i}`} className="text-[10px] font-semibold text-green-700 uppercase tracking-wider bg-green-50 border border-green-100/50 px-2.5 py-1 rounded-md">
-                            {label}
-                          </span>
-                        ))}
-                        {item.allergens?.map((allergen, i) => (
-                          <span key={`allergen-${i}`} className="text-[10px] font-semibold text-amber-700 uppercase tracking-wider bg-amber-50 border border-amber-100/50 px-2.5 py-1 rounded-md">
-                            {allergen}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Footer: Ingredients */}
-                    <div className="mt-auto">
-                      {item.ingredients && (
-                        <div className="pt-4 border-t border-neutral-100">
-                          <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">
-                            Key Ingredients
-                          </p>
-                          <p className="text-xs text-neutral-600 font-medium leading-relaxed">
-                            {item.ingredients}
-                          </p>
+                    {item.allergens && item.allergens.length > 0 && (
+                      <div className="mb-3 p-2 bg-amber-50 border border-amber-200 rounded-lg">
+                        <p className="text-[10px] font-semibold text-amber-800 uppercase tracking-wide mb-1">
+                          Allergens
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {item.allergens.map((allergen, i) => (
+                            <span
+                              key={i}
+                              className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md"
+                            >
+                              {allergen}
+                            </span>
+                          ))}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
+
+                    {item.dietaryLabels && item.dietaryLabels.length > 0 && (
+                      <div className="mb-3 p-2 bg-green-50/40 backdrop-blur-sm border border-green-100 rounded-lg shadow-sm">
+                        <p className="text-[10px] font-semibold text-green-800 uppercase tracking-wide mb-1">
+                          Dietary Preferences
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {item.dietaryLabels.map((label, i) => {
+                            const isVeg = label.toLowerCase() === 'vegetarian' || label.toLowerCase() === 'vegan';
+                            return (
+                              <span
+                                key={i}
+                                className="text-[10px] font-medium text-green-700 bg-white/80 border border-green-200/60 px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm"
+                              >
+                                {isVeg && <Leaf className="w-2.5 h-2.5 text-green-600" />}
+                                {label}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Ingredients Preview */}
+                    {item.ingredients && item.ingredients.trim() && (
+                      <div className="pt-3 border-t border-neutral-100 mt-auto">
+                        <p className="text-xs font-semibold text-neutral-600 mb-2 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+                          Key Ingredients
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <span className="text-xs font-medium text-green-700 bg-gradient-to-r from-green-50 to-green-100/50 border border-green-200 px-3 py-1.5 rounded-3xl hover:shadow-md transition-shadow">
+                            {item.ingredients}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
