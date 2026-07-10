@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { StoreConfigProvider } from "@/components/providers/store-config-provider";
 import { API_URL } from "@/lib/config";
+import { Toaster } from "@/components/ui/toaster";
 
 async function getStoreConfig() {
   try {
@@ -127,6 +128,7 @@ export default async function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <Toaster />
         </StoreConfigProvider>
       </body>
     </html>

@@ -19,6 +19,7 @@ import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { ConnectionStatus } from "@/components/connection-status";
 import { Button } from "@/components/ui/button";
 import { CookingAnimation } from "@/components/animations";
+import { toast } from "sonner";
 
 export default function LandingPage() {
   const { config } = useStoreConfigStore();
@@ -49,8 +50,8 @@ export default function LandingPage() {
         console.error("Error sharing", error);
       }
     } else {
-      alert("Link copied to clipboard!");
       navigator.clipboard.writeText("https://www.swamyshotfoods.in/");
+      toast.success("Link copied to clipboard!");
     }
   };
 
