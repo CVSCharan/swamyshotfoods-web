@@ -111,7 +111,7 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative px-4 py-2 rounded-full group"
+                    className="relative flex items-center justify-center px-4 py-2 rounded-full group cursor-pointer"
                   >
                     {active && (
                       <motion.div
@@ -163,7 +163,7 @@ export function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`p-2 rounded-full transition-colors ${
+                      className={`flex items-center justify-center p-2 rounded-full transition-colors cursor-pointer ${
                         active
                           ? "bg-green-50 text-green-600"
                           : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
