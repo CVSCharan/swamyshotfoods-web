@@ -252,8 +252,8 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-1.5 text-neutral-500 text-[11px] font-medium mb-3">
-                      <Clock className="w-3.5 h-3.5 text-neutral-400" />
+                    <div className="flex items-center gap-1.5 text-neutral-600 text-xs font-semibold mb-3">
+                      <Clock className="w-4 h-4 text-neutral-500" />
                       {formatTimings(item)}
                     </div>
 
