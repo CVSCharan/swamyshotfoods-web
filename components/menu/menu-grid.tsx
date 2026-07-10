@@ -47,12 +47,38 @@ interface MenuGridProps {
   items: MenuItem[];
 }
 
+// Helper function to format HH:MM to 12-hour AM/PM
+function formatTo12Hour(timeStr: string): string {
+  if (!timeStr) return "";
+  if (timeStr.toLowerCase().includes("am") || timeStr.toLowerCase().includes("pm")) {
+    return timeStr.toUpperCase();
+  }
+  const parts = timeStr.split(":");
+  if (parts.length < 2) return timeStr;
+
+  const hour = parseInt(parts[0], 10);
+  const minute = parseInt(parts[1], 10);
+  if (isNaN(hour) || isNaN(minute)) return timeStr;
+
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  const minuteFormatted = minute < 10 ? `0${minute}` : minute;
+
+  return `${hour12}:${minuteFormatted} ${ampm}`;
+}
+
 // Helper function to get time slot for an item
 function getTimeSlot(item: MenuItem): string {
-  const hasMorning =
-    item.morningTimings !== null && item.morningTimings !== undefined;
-  const hasEvening =
-    item.eveningTimings !== null && item.eveningTimings !== undefined;
+  const hasMorning = !!(
+    item.morningTimings &&
+    item.morningTimings.startTime?.trim() &&
+    item.morningTimings.endTime?.trim()
+  );
+  const hasEvening = !!(
+    item.eveningTimings &&
+    item.eveningTimings.startTime?.trim() &&
+    item.eveningTimings.endTime?.trim()
+  );
 
   if (hasMorning && hasEvening) return "All Day";
   if (hasMorning) return "Morning";
@@ -63,14 +89,14 @@ function getTimeSlot(item: MenuItem): string {
 // Helper function to format timing display
 function formatTimings(item: MenuItem): string {
   const parts: string[] = [];
-  if (item.morningTimings) {
+  if (item.morningTimings && item.morningTimings.startTime?.trim() && item.morningTimings.endTime?.trim()) {
     parts.push(
-      `${item.morningTimings.startTime}-${item.morningTimings.endTime}`
+      `${formatTo12Hour(item.morningTimings.startTime)}-${formatTo12Hour(item.morningTimings.endTime)}`
     );
   }
-  if (item.eveningTimings) {
+  if (item.eveningTimings && item.eveningTimings.startTime?.trim() && item.eveningTimings.endTime?.trim()) {
     parts.push(
-      `${item.eveningTimings.startTime}-${item.eveningTimings.endTime}`
+      `${formatTo12Hour(item.eveningTimings.startTime)}-${formatTo12Hour(item.eveningTimings.endTime)}`
     );
   }
   return parts.join(" & ") || "Anytime";
@@ -260,6 +286,25 @@ export function MenuGrid({ items: initialItems }: MenuGridProps) {
                       <p className="text-sm text-neutral-500 leading-relaxed mb-6 whitespace-pre-wrap">
                         {item.desc.trim()}
                       </p>
+                    )}
+
+                    {/* Timings */}
+                    {((item.morningTimings && item.morningTimings.startTime?.trim() && item.morningTimings.endTime?.trim()) ||
+                      (item.eveningTimings && item.eveningTimings.startTime?.trim() && item.eveningTimings.endTime?.trim())) && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {item.morningTimings && item.morningTimings.startTime?.trim() && item.morningTimings.endTime?.trim() && (
+                          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-700 bg-amber-50/60 border border-amber-100/50 px-2.5 py-1 rounded-md">
+                            <Sun className="w-3.5 h-3.5 text-amber-500" />
+                            Morning: {formatTo12Hour(item.morningTimings.startTime)} - {formatTo12Hour(item.morningTimings.endTime)}
+                          </span>
+                        )}
+                        {item.eveningTimings && item.eveningTimings.startTime?.trim() && item.eveningTimings.endTime?.trim() && (
+                          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-indigo-700 bg-indigo-50/60 border border-indigo-100/50 px-2.5 py-1 rounded-md">
+                            <Moon className="w-3.5 h-3.5 text-indigo-500" />
+                            Evening: {formatTo12Hour(item.eveningTimings.startTime)} - {formatTo12Hour(item.eveningTimings.endTime)}
+                          </span>
+                        )}
+                      </div>
                     )}
 
                     {/* Dietary & Allergens */}
